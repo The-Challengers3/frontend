@@ -13,7 +13,7 @@ const Navbar = ({ socket }) => {
     socket.on("getNotification", (data) => {
       setNotifications((prev) => [...prev, data]);
     });
-  }, [socket]);
+  }, [socket, notifications]);
 
   const displayNotification = ({ senderName, type }) => {
     let action;
