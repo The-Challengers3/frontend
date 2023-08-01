@@ -8,17 +8,20 @@ import Reel from "./reel";
 import ReelModal from './reelModal/modal'
 
 
-const App = () => {
+const Reelspage = ({user}) => {
   const [reelsData, setreelsData] = useState([]);
   
   
   const req = async()=>{
     const req = `http://localhost:3005/reels`;
-    const res = await axios.get(req)
+    const res = await axios.get(req, {
+      headers: {
+        "Authorization": `Bearer ${user.token}`,
+      },
+    });
     console.log(res.data);
     setreelsData(res.data);
   }
-
   useEffect(()=>{
     req();
   },[])
@@ -27,12 +30,10 @@ const App = () => {
     <>
       <div className="App">
         <center>
-          <div className="logo">
-            
-          </div>
-          <ReelModal/>
+          <div className="logo"></div>
+          <ReelModal user ={user}/>
           <h3>Reel</h3>
-      
+
           {/*  */}
 
           <div className="video-container" id="video-container">
@@ -50,4 +51,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Reelspage;

@@ -16,21 +16,21 @@
   border: 1px solid lightgray;
   border-radius: 10px;
 }
-/* 
+
 form {
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-} */
+}
 
 .formTitle {
   color: teal;
   font-weight: bold;
 }
 
-/* input {
+input {
   height: 30px;
   border: none;
   border-bottom: 1px solid lightgray;
@@ -38,7 +38,7 @@ form {
 
 input:focus {
   outline: none;
-} */
+}
 
 .submitButton {
   width: 100px;

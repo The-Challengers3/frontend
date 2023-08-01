@@ -5,7 +5,7 @@ import React, { useRef, useState, useEffect } from "react";
 // import "./reel.css";
 
 export default function Video({  url }) {
-  const [isVideoPlaying, setisVideoPlaying] = useState(true);
+  const [isVideoPlaying, setisVideoPlaying] = useState(false);
 
   const vidRef = useRef();
 
@@ -32,7 +32,7 @@ export default function Video({  url }) {
   return (
     <div className="video-cards">
     
-      <video autoPlay
+      <video 
         onClick={onVideoClick}
         className="video-player"
         ref={vidRef}
