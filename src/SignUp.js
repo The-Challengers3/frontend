@@ -15,7 +15,7 @@ function SignUp() {
         e.preventDefault();
         try {
             const role = isOwner === 0 ? 'user' : 'owner';
-            const res = await axios.post("http://localhost:3000/signup", {
+            const res = await axios.post("http://localhost:3005/signup", {
                 "username": username,
                 "password": password,
                 "role": role
