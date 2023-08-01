@@ -8,6 +8,7 @@ import SignUp from "./SignUp"
 import SignIn from "./SignIn";
 import Reels from './components/reels/reelsPage'
 
+import Room from "./components/chat/Room";
 const App = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState("");
@@ -48,6 +49,8 @@ const App = () => {
       {/* <SignUp /> */}
       {/* <SignIn /> */}
       {/* <Reels/> */}
+      <Room socket={socket}/>
+
     </div>
   );
   };
