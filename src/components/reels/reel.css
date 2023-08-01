@@ -1,0 +1,47 @@
+.video-player {
+    height: 100%;
+    width: 100%;
+  }
+  
+  .video-cards {
+    position: relative;
+  }
+  
+  video {
+    width: 50%;
+    height: 100%;
+    scroll-snap-align: start;
+    /* position: relative; */
+  }
+
+
+  
+
+
+.App {
+  display: grid;
+  place-items: center;
+  height: 100vh;
+ 
+}
+
+.insta-logo {
+  width: 20%;
+  max-width: 200px;
+}
+
+.video-container {
+  position: relative;
+  height: 90vh;
+  width: 70%;
+  max-width: 550px;
+  border-radius: 20px;
+  overflow: scroll;
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+
+.video-container::-webkit-scrollbar {
+  display: none;
+}
