@@ -13,7 +13,12 @@ const Navbar = ({ socket }) => {
     socket.on("getNotification", (data) => {
       setNotifications((prev) => [...prev, data]);
     });
-  }, [socket, notifications]);
+  
+    // Clean up the event listener when the component unmounts
+    return () => {
+      socket.off("getNotification");
+    };
+  }, [socket]);
 
   const displayNotification = ({ senderName, type }) => {
     let action;
