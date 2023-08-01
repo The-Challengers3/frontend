@@ -31,7 +31,7 @@ const App = () => {
 
   return (
     <div className="container">
-      {user ? (
+      {/* {user ? (
         <>
           <Navbar socket={socket} />
           {posts.map((post) => (
@@ -51,9 +51,9 @@ const App = () => {
 
           <button onClick={() => setUser(username)}>Login</button>
         </div>
-      )}
+      )} */}
       {/* <SignUp /> */}
-      {/* <SignIn /> */}
+      <SignIn />
     </div>
   );
 };
