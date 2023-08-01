@@ -6,7 +6,7 @@ import { posts } from "./data";
 import { io } from "socket.io-client";
 import SignUp from "./SignUp"
 import SignIn from "./SignIn";
-
+import Room from "./components/chat/Room";
 const App = () => {
   const [username, setUsername] = useState("");
   const [user, setUser] = useState("");
@@ -53,7 +53,9 @@ const App = () => {
         </div>
       )} */}
       {/* <SignUp /> */}
-      <SignIn />
+      {/* <SignIn /> */}
+      <Room socket={socket}/>
+
     </div>
   );
   };
