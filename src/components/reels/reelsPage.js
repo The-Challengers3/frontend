@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./reel.css";
+// import "./reel.css";
 
 import axios from 'axios';
 
@@ -17,8 +17,8 @@ const App = () => {
     const res = await axios.get(req)
     console.log(res.data);
     setreelsData(res.data);
-
   }
+
   useEffect(()=>{
     req();
   },[])
@@ -38,7 +38,7 @@ const App = () => {
           <div className="video-container" id="video-container">
             {/*  */}
 
-            {reelsData.map((list, i) => (
+            {reelsData.reverse().map((list, i) => (
               <Reel key={i} url={list.url} />
             ))}
 

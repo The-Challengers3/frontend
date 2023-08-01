@@ -1,4 +1,4 @@
-import "./signup.css";
+// import "./signup.css";
 import axios from "axios";
 import { useState } from "react";
 // import jwt_decode from "jwt-decode";
