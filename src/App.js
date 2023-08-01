@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./App.css";
+// import "./App.css";
 import Card from "./components/card/Card";
 import Navbar from "./components/navbar/Navbar";
 import { posts } from "./data";
@@ -7,12 +7,16 @@ import { io } from "socket.io-client";
 import SignUp from "./SignUp"
 import SignIn from "./SignIn";
 import Reels from './components/reels/reelsPage'
-
 import Room from "./components/chat/Room";
+import { Route, Routes } from "react-router-dom";
+
 const App = () => {
-  const [username, setUsername] = useState("");
   const [user, setUser] = useState("");
   const [socket, setSocket] = useState(null);
+
+  function UserInformation (data){
+    setUser(data)
+  }
 
   useEffect(() => {
     setSocket(io("http://localhost:3005"));
@@ -25,7 +29,7 @@ const App = () => {
 
   return (
     <div className="container">
-      {user ? (
+      {/* {user ? (
         <>
           <Navbar socket={socket} />
           {posts.map((post) => (
@@ -45,12 +49,16 @@ const App = () => {
 
           <button onClick={() => setUser(username)}>Login</button>
         </div>
-      )}
-      {/* <SignUp /> */}
-      {/* <SignIn /> */}
-      {/* <Reels/> */}
-      <Room socket={socket}/>
-
+      )} */}
+      <Routes>
+        <Route
+          path="/"
+          element={<SignIn UserInformation={UserInformation} />}
+        />
+        <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/Reels" element={<Reels user={user} />} />
+        <Route path="/Room" element={<Room socket={socket} user={user} />} />
+      </Routes>
     </div>
   );
   };

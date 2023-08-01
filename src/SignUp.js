@@ -1,6 +1,8 @@
-// import "./signup.css";
+import "./signup.css";
 import axios from "axios";
 import { useState } from "react";
+import UserDashboard from "./components/UserDashboard/UserDashboard";
+import OwnerDashboard from "./components/OwnerDashboard/OwnerDashboard";
 // import jwt_decode from "jwt-decode";
 
 function SignUp() {
@@ -28,43 +30,44 @@ function SignUp() {
     };
 
     return (
-        <div className="container">
-            {user ? (
-                <div className="home">
-                    <span>
-                        Welcome to the <b>{user.user.role === 'owner' ? "owner" : user.user.role === 'admin' ? "admin" : 'user'}</b> dashboard{" "}
-                        <b>{user.user.username}</b>.
-                    </span>
-                </div>
+      <div className="container">
+        {user ? (
+          <div className="home">
+            {user.user.role === "user" ? (
+              <UserDashboard user={user} />
             ) : (
-                <div className="login">
-                    <form onSubmit={handleSubmit}>
-                        <span className="formTitle">Sign Up</span>
-                        <input
-                            type="text"
-                            placeholder="username"
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <input
-                            type="password"
-                            placeholder="password"
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <div className="ownerr">
-                            <label>owner</label>
-                            <input
-                                type="checkbox"
-                                placeholder="password"
-                                onChange={(e) => setIsOwner(e.target.value)}
-                            />
-                        </div>
-                        <button type="submit" className="submitButton">
-                            Sign Up
-                        </button>
-                    </form>
-                </div>
+              <OwnerDashboard user={user} />
             )}
-        </div>
+          </div>
+        ) : (
+          <div className="login">
+            <form onSubmit={handleSubmit}>
+              <span className="formTitle">Sign Up</span>
+              <input
+                type="text"
+                placeholder="username"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div className="ownerr">
+                <label>owner</label>
+                <input
+                  type="checkbox"
+                  checked={isOwner === 1}
+                  onChange={(e) => setIsOwner(e.target.checked ? 1 : 0)}
+                />
+              </div>
+              <button type="submit" className="submitButton">
+                Sign Up
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
     );
 }
 
