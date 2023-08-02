@@ -1,4 +1,4 @@
-import "./navbar.css";
+// import "./navbar.css";
 import Notification from "../../img/1.jpg";
 import Message from "../../img/1.jpg";
 import Settings from "../../img/1.jpg";
@@ -13,7 +13,12 @@ const Navbar = ({ socket }) => {
     socket.on("getNotification", (data) => {
       setNotifications((prev) => [...prev, data]);
     });
-  }, [socket, notifications]);
+  
+    // Clean up the event listener when the component unmounts
+    return () => {
+      socket.off("getNotification");
+    };
+  }, [socket]);
 
   const displayNotification = ({ senderName, type }) => {
     let action;
