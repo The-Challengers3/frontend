@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from 'axios';
 
-import "./modal.css";
+//import "./modal.css";
 import Form from "react-bootstrap/Form";
 
 function ReelModal() {

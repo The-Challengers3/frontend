@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import "./App.css";
+import "./App.css";
 import Card from "./components/card/Card";
 import Navbar from "./components/navbar/Navbar";
 import { posts } from "./data";
@@ -31,7 +31,7 @@ const App = () => {
 
   return (
     <div className="container">
-      {/* {user ? (
+      {user ? (
         <>
           <Navbar socket={socket} />
           {posts.map((post) => (
@@ -51,9 +51,9 @@ const App = () => {
 
           <button onClick={() => setUser(username)}>Login</button>
         </div>
-      )} */}
+      )}
       {/* <SignUp /> */}
-      <SignIn />
+      {/* <SignIn /> */}
     </div>
   );
   };
