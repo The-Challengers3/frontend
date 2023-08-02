@@ -7,7 +7,7 @@ import { io } from "socket.io-client";
 import SignUp from "./SignUp"
 import SignIn from "./SignIn";
 import Reels from './components/reels/reelsPage'
-import Room from "./components/chat/Room";
+import Chat from "./components/chat/Chat";
 import { Route, Routes } from "react-router-dom";
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
 
   return (
     <div className="container">
-      {user ? (
+      {/* {user ? (
         <>
           <Navbar socket={socket} />
           {posts.map((post) => (
@@ -49,7 +49,7 @@ const App = () => {
 
           <button onClick={() => setUser(username)}>Login</button>
         </div>
-      )}
+      )} */}
       {/* <SignUp /> */}
       {/* <SignIn /> */}
       
@@ -60,7 +60,7 @@ const App = () => {
         />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/Reels" element={<Reels user={user} />} />
-        <Route path="/Room" element={<Room socket={socket} user={user} />} />
+        <Route path="/Chat" element={<Chat socket={socket} username={user.username} room={user.id} />} />
       </Routes>
     </div>
   );

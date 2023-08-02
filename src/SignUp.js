@@ -4,6 +4,7 @@ import { useState } from "react";
 import UserDashboard from "./components/UserDashboard/UserDashboard";
 import OwnerDashboard from "./components/OwnerDashboard/OwnerDashboard";
 // import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
     const [user, setUser] = useState(null);
@@ -12,6 +13,7 @@ function SignUp() {
     const [isOwner, setIsOwner] = useState(0);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -32,13 +34,9 @@ function SignUp() {
     return (
       <div className="container">
         {user ? (
-          <div className="home">
-            {user.user.role === "user" ? (
-              <UserDashboard user={user} />
-            ) : (
-              <OwnerDashboard user={user} />
-            )}
-          </div>
+         
+      navigate("/")
+        
         ) : (
           <div className="login">
             <form onSubmit={handleSubmit}>
