@@ -13,7 +13,7 @@ const App = () => {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    setSocket(io("http://localhost:3005"));
+    setSocket(io("http://localhost:3000"));
   }, []);
 
   useEffect(() => {
