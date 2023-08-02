@@ -3,10 +3,10 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from 'axios';
 
-//import "./modal.css";
+// import "./modal.css";
 import Form from "react-bootstrap/Form";
 
-function ReelModal() {
+function ReelModal({user}) {
   const [show, setShow] = useState(false);
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
@@ -27,7 +27,7 @@ function ReelModal() {
 
   }
   const addToReels = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
   
     // Validate required fields
     // if (!username || !selectedFile) {
@@ -38,18 +38,20 @@ function ReelModal() {
     const req = `http://localhost:3005/reelsUpload`;
   
     const formData = new FormData();
-    formData.append("username", username);
+    formData.append("username", user.username);
     formData.append("description", description);
     formData.append("video", selectedFile);
 
 
   
     axios
-      .post(req, formData,{
+      .post(req, formData, {
         headers: {
+          "Authorization": `Bearer ${user.token}`,
           "Content-Type": "multipart/form-data",
-        }})
-        
+        },
+      })
+
       .then((response) => {
         // Handle successful response here
         console.log("Upload successful:", response.data);
@@ -73,11 +75,6 @@ function ReelModal() {
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Username</Form.Label>
-              <Form.Control type="text" placeholder="Enter your username" value={username} onChange={(e) => setUsername(e.target.value)} />
-            </Form.Group>
-
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Description</Form.Label>
               <Form.Control type="text" placeholder="Enter description" value={description} onChange={(e) => setDescription(e.target.value)} />

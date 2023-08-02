@@ -1,6 +1,8 @@
 import "./signup.css";
 import axios from "axios";
 import { useState } from "react";
+import UserDashboard from "./components/UserDashboard/UserDashboard";
+import OwnerDashboard from "./components/OwnerDashboard/OwnerDashboard";
 // import jwt_decode from "jwt-decode";
 
 function SignUp() {
@@ -27,102 +29,45 @@ function SignUp() {
         }
     };
 
-    const handleDelete = async (id) => {
-        setSuccess(false);
-        setError(false);
-        try {
-            await axiosJWT.delete("/users/" + id, {
-                headers: { authorization: "Bearer " + user.accessToken },
-            });
-            setSuccess(true);
-        } catch (err) {
-            setError(true);
-        }
-    };
-    // const refreshToken = async () => {
-    //     try {
-    //         const res = await axios.post("/refresh", { token: user.refreshToken });
-    //         setUser({
-    //             ...user,
-    //             accessToken: res.data.accessToken,
-    //             refreshToken: res.data.refreshToken,
-    //         });
-    //         return res.data;
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-    // };
-
-    const axiosJWT = axios.create()
-
-    // axiosJWT.interceptors.request.use(
-    //     async (config) => {
-    //         let currentDate = new Date();
-    //         const decodedToken = jwt_decode(user.accessToken);
-    //         if (decodedToken.exp * 1000 < currentDate.getTime()) {
-    //             const data = await refreshToken();
-    //             config.headers["authorization"] = "Bearer " + data.accessToken;
-    //         }
-    //         return config;
-    //     },
-    //     (error) => {
-    //         return Promise.reject(error);
-    //     }
-    // );
-
-
     return (
-        <div className="container">
-            {user ? (
-                <div className="home">
-                    <span>
-                        Welcome to the <b>{user.role === 'owner' ? "owner" : "user"}</b> dashboard{" "}
-                        <b>{user.username}</b>.
-                    </span>
-                    <span>Delete Users:</span>
-                    <button className="deleteButton" onClick={() => handleDelete(1)}>
-                        Delete John
-                    </button>
-                    <button className="deleteButton" onClick={() => handleDelete(2)}>
-                        Delete Jane
-                    </button>
-                    {error && (
-                        <span className="error">
-                            You are not allowed to delete this user!
-                        </span>
-                    )}
-                    {success && (
-                        <span className="success">
-                            User has been deleted successfully...
-                        </span>
-                    )}
-                </div>
+      <div className="container">
+        {user ? (
+          <div className="home">
+            {user.user.role === "user" ? (
+              <UserDashboard user={user} />
             ) : (
-                <div className="login">
-                    <form onSubmit={handleSubmit}>
-                        <span className="formTitle">Sign Up</span>
-                        <input
-                            type="text"
-                            placeholder="username"
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <input
-                            type="password"
-                            placeholder="password"
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <input
-                            type="checkbox"
-                            placeholder="password"
-                            onChange={(e) => setIsOwner(e.target.value)}
-                        />
-                        <button type="submit" className="submitButton">
-                            Sign Up
-                        </button>
-                    </form>
-                </div>
+              <OwnerDashboard user={user} />
             )}
-        </div>
+          </div>
+        ) : (
+          <div className="login">
+            <form onSubmit={handleSubmit}>
+              <span className="formTitle">Sign Up</span>
+              <input
+                type="text"
+                placeholder="username"
+                onChange={(e) => setUsername(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="password"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <div className="ownerr">
+                <label>owner</label>
+                <input
+                  type="checkbox"
+                  checked={isOwner === 1}
+                  onChange={(e) => setIsOwner(e.target.checked ? 1 : 0)}
+                />
+              </div>
+              <button type="submit" className="submitButton">
+                Sign Up
+              </button>
+            </form>
+          </div>
+        )}
+      </div>
     );
 }
 

@@ -1,5 +1,5 @@
 import "./card.css";
-import Heart from "../../img/1.jpg";
+import Heart from "../../img/instagram (2).png";
 import HeartFilled from "../../img/1.jpg";
 import Comment from "../../img/1.jpg";
 import Share from "../../img/1.jpg";
@@ -27,7 +27,7 @@ const Card = ({ post, socket, user }) => {
       <img src={post.postImg} alt="" className="postImg" />
       <div className="interaction">
         {liked ? (
-          <img src={HeartFilled} alt="" className="cardIcon" />
+          <img src={HeartFilled} alt="" className="cardIcon" onClick={ setLiked(false)}/>
         ) : (
           <img
             src={Heart}
