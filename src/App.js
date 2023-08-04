@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-// import "./App.css";
+import "./App.css";
 import Card from "./components/card/Card";
 import Navbar from "./components/navbar/Navbar";
 import { posts } from "./data";
@@ -8,10 +8,16 @@ import SignUp from "./SignUp"
 import SignIn from "./SignIn";
 import Reels from './components/reels/reelsPage'
 import Room from "./components/chat/Room";
+import Mapp from "./components/Map/mapp";
+
+
+
 import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
+
   const [socket, setSocket] = useState(null);
 
   function UserInformation (data){
@@ -50,7 +56,7 @@ const App = () => {
           <button onClick={() => setUser(username)}>Login</button>
         </div>
       )} */}
-      <Routes>
+      {/* <Routes>
         <Route
           path="/"
           element={<SignIn UserInformation={UserInformation} />}
@@ -58,7 +64,8 @@ const App = () => {
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/Reels" element={<Reels user={user} />} />
         <Route path="/Room" element={<Room socket={socket} user={user} />} />
-      </Routes>
+      </Routes> */}
+      <Mapp/>
     </div>
   );
   };

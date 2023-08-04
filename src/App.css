@@ -4,7 +4,7 @@ body {
   align-items: center;
   justify-content: center;
 }
-
+/* 
 .container {
   width: 50vh;
   border-radius: 5px;
@@ -19,13 +19,13 @@ body {
   justify-content: center;
 }
 
-input {
+.login input {
   width: 50%;
   padding: 10px;
   margin-bottom: 20px;
 }
 
-button {
+.login button {
   width: 60%;
   padding: 10px;
   background-color: lightseagreen;
@@ -35,7 +35,7 @@ button {
   cursor: pointer;
 }
 
-.username {
+.login .username {
   font-weight: bold;
   color: lightseagreen;
   position: absolute;
@@ -43,10 +43,10 @@ button {
   right: 20px;
 }
 
-h2{
+.login h2{
   margin-bottom: 30px;
   background-color: lightseagreen;
   color: white;
   padding: 3px 5px;
   border-radius: 5px;
-}
+} */

@@ -1,5 +1,5 @@
 import React from 'react';
-import "./dashboard.css";
+// import "./dashboard.css";
 import Reelspage from '../reels/reelsPage';
 import { Link } from 'react-router-dom';
 

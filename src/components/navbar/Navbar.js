@@ -1,4 +1,4 @@
-// import "./navbar.css";
+import "./navbar.css";
 import Notification from "../../img/1.jpg";
 import Message from "../../img/1.jpg";
 import Settings from "../../img/1.jpg";

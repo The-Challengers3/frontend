@@ -41,7 +41,7 @@ function SignIn({ UserInformation }) {
 
   console.log(user);
   return (
-    <div className="container">
+    <div className="logincontainer">
       {user ? (
         <div className="home">
           {user.user.role === "user" ? (

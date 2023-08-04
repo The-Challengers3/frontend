@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 
 // import components
 
-// import "./reel.css";
+import "./reel.css";
 
 export default function Video({  url }) {
   const [isVideoPlaying, setisVideoPlaying] = useState(false);
