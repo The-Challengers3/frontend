@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import "./dashboard.css";
 import Reelspage from '../reels/reelsPage';
 import { Link } from 'react-router-dom';
+import io from "socket.io-client";
+const socket = io("http://localhost:3005");
 
 
 function UserDashboard({ user, socket, setUserRoom }) {

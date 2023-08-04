@@ -10,7 +10,8 @@ import Reels from './components/reels/reelsPage'
 import Chat from "./components/chat/Chat";
 import Room from "./components/chat/Room";
 import { Route, Routes } from "react-router-dom";
-
+import Maps from "./components/map/Map";
+import MApp from "./components/map/Map";
 const App = () => {
   const [user, setUser] = useState("");
   const [socket, setSocket] = useState(null);
@@ -60,11 +61,15 @@ const App = () => {
           element={<SignIn UserInformation={UserInformation} socket={socket} userRoom={userRoom} />}
         />
         <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/maps" element={<Maps />} />
+
         <Route path="/Reels" element={<Reels user={user} />} />
         <Route path="/Chat" element={<Chat socket={socket} username={user.user?.username} room={2} />} />
         <Route path="/Room" element={<Room socket={socket} user={user} />} />
       </Routes> */}
-    </div>
+      {/* <DirectionsControl/> */}
+      <MApp />
+    </div >
   );
 };
 
