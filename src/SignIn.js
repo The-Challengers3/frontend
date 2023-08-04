@@ -1,22 +1,24 @@
 import "./signin.css";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import UserDashboard from "./components/UserDashboard/UserDashboard";
 import OwnerDashboard from "./components/OwnerDashboard/OwnerDashboard";
+import AdminDashboard from "./components/adminDashboard/AdminDashboard";
 const base64 = require('base-64');
 
 // import jwt_decode from "jwt-decode";
 
-function SignIn({ UserInformation }) {
+function SignIn({ UserInformation, socket }) {
     const [user, setUser] = useState(null);
+    const [userRoom, setUserRoom] = useState([]);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [auth, setAuth] = useState(null);
     const encodedUser = base64.encode(username + ":");
     const encodedPassweord = base64.encode(password);
-    console.log(`${encodedUser}${encodedPassweord}`);
+    // console.log(`${encodedUser}${encodedPassweord}`);
     const handleSubmit = async (e) => {
         e.preventDefault();
         const postData = {
@@ -32,23 +34,24 @@ function SignIn({ UserInformation }) {
             });
             setUser(res.data);
             UserInformation(res.data)
-            console.log(res.data);
+            console.log(username);
         } catch (err) {
             console.log(err);
             setError(true);
         }
     };
 
-    console.log(user);
+    console.log({ userRoom })
+
     return (
         <div className="container">
             {user ? (
                 <div className="home">
                     {user.user.role === "user" ? (
-                        <UserDashboard user={user} />
-                    ) : (
-                        <OwnerDashboard user={user} />
-                    )}
+                        <UserDashboard user={user} socket={socket} setUserRoom={setUserRoom} />
+                    ) : user.user.role === "admin" ? (
+                        <AdminDashboard user={user} socket={socket} />
+                    ) : <OwnerDashboard user={user} socket={socket} />}
                 </div>
             ) : error ? (
                 <div className="invalid">
@@ -68,7 +71,7 @@ function SignIn({ UserInformation }) {
                             placeholder="password"
                             onChange={(e) => setPassword(e.target.value)}
                         />
-                        <button type="submit" className="submitButton">
+                        <button type="submit" className="submitButton" >
                             Login
                         </button>
                         <p>
@@ -76,6 +79,7 @@ function SignIn({ UserInformation }) {
                             <Link to="/SignUp"> signup here</Link>
                         </p>
                     </form>
+                    {/* <button onClick={() => { setUser2(username) }}>abc</button> */}
                 </div>
             )}
         </div>

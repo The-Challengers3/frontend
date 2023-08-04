@@ -8,25 +8,26 @@ import SignUp from "./SignUp"
 import SignIn from "./SignIn";
 import Reels from './components/reels/reelsPage'
 import Chat from "./components/chat/Chat";
+import Room from "./components/chat/Room";
 import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   const [user, setUser] = useState("");
   const [socket, setSocket] = useState(null);
+  const [userRoom, setUserRoom] = useState("");
 
-  function UserInformation (data){
+  function UserInformation(data) {
     setUser(data)
   }
 
   useEffect(() => {
-    setSocket(io("http://localhost:3000"));
+    setSocket(io("http://localhost:3005"));
   }, []);
 
-  useEffect(() => {
-  
-    socket?.emit("newUser", user);
-  }, [socket, user]);
+  // useEffect(() => {
 
+  //   socket?.emit("newUser", user);
+  // }, [socket, user]);
   return (
     <div className="container">
       {/* {user ? (
@@ -52,18 +53,19 @@ const App = () => {
       )} */}
       {/* <SignUp /> */}
       {/* <SignIn /> */}
-      
-      <Routes>
+
+      {/* <Routes>
         <Route
           path="/"
-          element={<SignIn UserInformation={UserInformation} />}
+          element={<SignIn UserInformation={UserInformation} socket={socket} userRoom={userRoom} />}
         />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/Reels" element={<Reels user={user} />} />
-        <Route path="/Chat" element={<Chat socket={socket} username={user.username} room={user.id} />} />
-      </Routes>
+        <Route path="/Chat" element={<Chat socket={socket} username={user.user?.username} room={2} />} />
+        <Route path="/Room" element={<Room socket={socket} user={user} />} />
+      </Routes> */}
     </div>
   );
-  };
+};
 
 export default App;
