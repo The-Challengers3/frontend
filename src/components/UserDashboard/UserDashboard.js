@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./dashboard.css";
 import Reelspage from '../reels/reelsPage';
 import { Link } from 'react-router-dom';
@@ -6,15 +6,21 @@ import io from "socket.io-client";
 const socket = io("http://localhost:3005");
 
 
-function UserDashboard({ user, socket, setUserRoom }) {
+function UserDashboard({ user, socket }) {
+
   socket?.emit("newUser", user.user.username);
 
+  const adminArray = ['laith', 'mary'];
+
   const sendToAdmin = () => {
-    socket?.emit("join_room", user.user.id);
-    socket?.emit("sendNotification", {
-      senderName: user.user.username,
-      receiverName: "laith",
-      roomId: user.user.id
+    socket?.emit("join_room", `${user?.user?.id}`);
+
+    adminArray.map((name) => {
+      socket?.emit("sendNotification", {
+        senderName: user?.user?.username,
+        receiverName: name,
+        roomId: user?.user?.id
+      });
     });
 
 
@@ -30,9 +36,9 @@ function UserDashboard({ user, socket, setUserRoom }) {
   }
 
 
-  useEffect(() => {
-    setUserRoom(user?.user?.id)
-  }, [user?.user?.id]);
+  // useEffect(() => {
+  //   setUserRoom(user?.user?.id)
+  // }, [user?.user?.id]);
 
 
   return (

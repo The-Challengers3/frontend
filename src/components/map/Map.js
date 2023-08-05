@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useState, useEffect,useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import "mapbox-gl/dist/mapbox-gl.css";
 import RoomIcon from "@mui/icons-material/Room";
 import StarIcon from "@mui/icons-material/Star";
@@ -18,7 +18,7 @@ import Map, {
 navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
   enableHighAccuracy: true,
 });
-var zzz =[]
+var zzz = []
 function successLocation(position) {
   setupMap([position.coords.longitude, position.coords.latitude]);
   console.log(position);
@@ -27,7 +27,7 @@ function successLocation(position) {
 }
 
 function errorLocation() {
-  setupMap([31.9539,35.9106]);
+  setupMap([31.9539, 35.9106]);
 }
 
 function setupMap(center) {
@@ -48,11 +48,11 @@ function MApp() {
   const [end, setEnd] = useState([zzz]);
   const [coords, setCoords] = useState([])
 
-  useEffect(( )=>{
+  useEffect(() => {
     getRoute()
-  },[end, start])
+  }, [end, start])
 
-  const getRoute = async () =>{
+  const getRoute = async () => {
     const response = await fetch(
       `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=pk.eyJ1IjoiYW1yb2Jhbmlpc3NhIiwiYSI6ImNsa3RtZXZ6aTBheG8zZnFvZXA2NmJ1dmoifQ.niUJad6HoR8yfURjiAS5Dw`
     );
@@ -60,7 +60,6 @@ function MApp() {
     console.log(data)
     const coords = data.routes[0].geometry.coordinates
     setCoords(coords)
-    
   }
   const geojson = {
     type: "FeatureCollection",
@@ -71,12 +70,12 @@ function MApp() {
           type: "LineString",
           coordinates: [
             ...coords
-          ], 
+          ],
         },
       },
     ],
   };
-  
+
   const lineStyle = {
     id: "roadLayer",
     type: "line",
@@ -111,15 +110,15 @@ function MApp() {
     getPins();
   }, []);
 
-    const handleClick= (e)=>{
-      const newEnd = e.lngLat
-      const endPoint= Object.keys(newEnd).map((item,i)=>newEnd[item])
-      setEnd(endPoint)
-    }
+  const handleClick = (e) => {
+    const newEnd = e.lngLat
+    const endPoint = Object.keys(newEnd).map((item, i) => newEnd[item])
+    setEnd(endPoint)
+  }
 
   return (
-    <>
-      <Map
+    <>{coords &&
+      (<Map
         {...initialViewState}
         onClick={handleClick}
         onMove={evt => setInitialViewState(evt.initialViewState)}
@@ -178,7 +177,7 @@ function MApp() {
             longitude={35.9106}
             latitude={31.9539}
             anchor="left"
-            // onClose={() => setShowPopup(false)}
+          // onClose={() => setShowPopup(false)}
           >
             <div className="card">
               <label>Place</label>
@@ -203,7 +202,7 @@ function MApp() {
         <Source id="routeSource" type="geojson" data={geojson}>
           <Layer {...lineStyle} />
         </Source>
-      </Map>
+      </Map>)}
     </>
   );
 }

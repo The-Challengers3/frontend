@@ -8,7 +8,6 @@ function AdminDashboard({ user, socket }) {
   const [notifications, setNotifications] = useState([]);
 
   socket?.emit("newUser", user.user.username);
-  socket?.emit("send_roomId", 2);
 
   useEffect(() => {
     socket.on("getNotification", (data) => {

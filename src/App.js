@@ -15,7 +15,7 @@ import MApp from "./components/map/Map";
 const App = () => {
   const [user, setUser] = useState("");
   const [socket, setSocket] = useState(null);
-  const [userRoom, setUserRoom] = useState("");
+  // const [userRoom, setUserRoom] = useState("");
 
   function UserInformation(data) {
     setUser(data)
@@ -55,20 +55,19 @@ const App = () => {
       {/* <SignUp /> */}
       {/* <SignIn /> */}
 
-      {/* <Routes>
+      <Routes>
         <Route
           path="/"
-          element={<SignIn UserInformation={UserInformation} socket={socket} userRoom={userRoom} />}
+          element={<SignIn UserInformation={UserInformation} socket={socket} />}
         />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/maps" element={<Maps />} />
+        {/* <Route path="/maps" element={<Maps />} /> */}
 
         <Route path="/Reels" element={<Reels user={user} />} />
-        <Route path="/Chat" element={<Chat socket={socket} username={user.user?.username} room={2} />} />
+        <Route path="/Chat" element={<Chat socket={socket} username={user.user?.username} room={user?.user?.id} />} />
         <Route path="/Room" element={<Room socket={socket} user={user} />} />
-      </Routes> */}
-      {/* <DirectionsControl/> */}
-      <MApp />
+      </Routes>
+      {/* <MApp /> */}
     </div >
   );
 };

@@ -11,7 +11,7 @@ const base64 = require('base-64');
 
 function SignIn({ UserInformation, socket }) {
     const [user, setUser] = useState(null);
-    const [userRoom, setUserRoom] = useState([]);
+    // const [userRoom, setUserRoom] = useState([]);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
@@ -41,14 +41,14 @@ function SignIn({ UserInformation, socket }) {
         }
     };
 
-    console.log({ userRoom })
+    // console.log({ userRoom })
 
     return (
         <div className="container">
             {user ? (
                 <div className="home">
                     {user.user.role === "user" ? (
-                        <UserDashboard user={user} socket={socket} setUserRoom={setUserRoom} />
+                        <UserDashboard user={user} socket={socket} />
                     ) : user.user.role === "admin" ? (
                         <AdminDashboard user={user} socket={socket} />
                     ) : <OwnerDashboard user={user} socket={socket} />}
