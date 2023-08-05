@@ -45,6 +45,8 @@ function MApp() {
   });
 
   const [start, setStart] = useState(zzz);
+  const [newPlace, setNewPlace] = useState(null);
+
   const [end, setEnd] = useState([zzz]);
   const [coords, setCoords] = useState([])
 
@@ -116,10 +118,17 @@ function MApp() {
       const endPoint= Object.keys(newEnd).map((item,i)=>newEnd[item])
       setEnd(endPoint)
     }
-
+const addNewPlace=(e)=>{
+ // const[long,lat]=e.lngLat;
+  console.log(e);
+//  setNewPlace({
+//     lat,
+//     long,
+//   })
+}
   return (
     <>
-      <Map
+      {coords&&(<Map
         {...initialViewState}
         onClick={handleClick}
         onMove={evt => setInitialViewState(evt.initialViewState)}
@@ -132,6 +141,7 @@ function MApp() {
         // }}
         style={{ width: "100vw", height: "100vh" }}
         mapStyle="mapbox://styles/mapbox/streets-v9"
+        onDblClick={addNewPlace}
       >
         <Marker longitude={35.9106} latitude={31.9539} anchor="bottom">
           <RoomIcon
@@ -203,7 +213,17 @@ function MApp() {
         <Source id="routeSource" type="geojson" data={geojson}>
           <Layer {...lineStyle} />
         </Source>
-      </Map>
+        {/* {newPlace&&(<Popup
+              latitude={newPlace.lat}
+              longitude={newPlace.long}
+              closeButton={true}
+              closeOnClick={false}
+              onClose={() => setNewPlace(null)}
+              anchor="left"
+            >
+              hello
+              </Popup>)} */}
+      </Map>)}
     </>
   );
 }
