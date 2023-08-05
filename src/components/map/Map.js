@@ -119,12 +119,12 @@ function MApp() {
       setEnd(endPoint)
     }
 const addNewPlace=(e)=>{
- // const[long,lat]=e.lngLat;
+ const{lat,lng}=e.lngLat;
   console.log(e);
-//  setNewPlace({
-//     lat,
-//     long,
-//   })
+ setNewPlace({
+    lat,
+    lng,
+  })
 }
   return (
     <>
@@ -213,16 +213,64 @@ const addNewPlace=(e)=>{
         <Source id="routeSource" type="geojson" data={geojson}>
           <Layer {...lineStyle} />
         </Source>
-        {/* {newPlace&&(<Popup
+        {newPlace&&(
+        <>
+          <Marker
               latitude={newPlace.lat}
-              longitude={newPlace.long}
+              longitude={newPlace.lng}
+             
+            >
+              <RoomIcon
+                style={{
+                  fontSize: 7 * 6,
+                  color: "tomato",
+                  cursor: "pointer",
+                }}
+              />
+            </Marker>
+        <Popup
+              latitude={newPlace.lat}
+              longitude={newPlace.lng}
               closeButton={true}
               closeOnClick={false}
               onClose={() => setNewPlace(null)}
               anchor="left"
-            >
-              hello
-              </Popup>)} */}
+              >
+               <div>
+                <form onSubmit={handleSubmit}>
+                  <label>Title</label>
+                  <input
+                    placeholder="Enter a title"
+                    autoFocus
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                  <label>image</label>
+                  <label>price</label>
+             
+                  <label>Description</label>
+                  <textarea
+                    placeholder="Say us something about this place."
+                    onChange={(e) => setDesc(e.target.value)}
+                  />
+                  <label>Rating</label>
+                  <select onChange={(e) => setStar(e.target.value)}>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                  <button type="submit" className="submitButton">
+                    Add Pin
+                  </button>
+                </form>
+              </div>
+
+              </Popup>
+              
+              </>
+              
+              )}
       </Map>)}
     </>
   );
