@@ -55,19 +55,19 @@ const App = () => {
       {/* <SignUp /> */}
       {/* <SignIn /> */}
 
-      <Routes>
+      {/* <Routes>
         <Route
           path="/"
           element={<SignIn UserInformation={UserInformation} socket={socket} />}
         />
         <Route path="/SignUp" element={<SignUp />} />
-        {/* <Route path="/maps" element={<Maps />} /> */}
+        { <Route path="/maps" element={<Maps />} /> }
 
         <Route path="/Reels" element={<Reels user={user} />} />
         <Route path="/Chat" element={<Chat socket={socket} username={user.user?.username} room={user?.user?.id} />} />
         <Route path="/Room" element={<Room socket={socket} user={user} />} />
-      </Routes>
-      {/* <MApp /> */}
+      </Routes> */}
+      <MApp />
     </div >
   );
 };
