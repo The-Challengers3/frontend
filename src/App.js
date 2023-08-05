@@ -8,11 +8,9 @@ import SignUp from "./SignUp"
 import SignIn from "./SignIn";
 import Reels from './components/reels/reelsPage'
 import Room from "./components/chat/Room";
-import Mapp from "./components/Map/mapp";
-
-
-
 import { Route, Routes } from "react-router-dom";
+import Maps from "./components/map/Map";
+import Map2 from "./components/mapp2/mapp2";
 
 const App = () => {
   const [user, setUser] = useState("");
@@ -34,7 +32,7 @@ const App = () => {
   }, [socket, user]);
 
   return (
-    <div className="container">
+    <div className="">
       {/* {user ? (
         <>
           <Navbar socket={socket} />
@@ -62,10 +60,14 @@ const App = () => {
           element={<SignIn UserInformation={UserInformation} />}
         />
         <Route path="/SignUp" element={<SignUp />} />
+        <Route path="/maps" element={<Maps />} />
+
         <Route path="/Reels" element={<Reels user={user} />} />
         <Route path="/Room" element={<Room socket={socket} user={user} />} />
       </Routes> */}
-      <Mapp/>
+      {/* <Maps /> */}
+
+      <Map2/>
     </div>
   );
   };

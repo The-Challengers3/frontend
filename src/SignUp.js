@@ -1,9 +1,10 @@
-// import "./signup.css";
+import "./signup.css";
 import axios from "axios";
 import { useState } from "react";
 import UserDashboard from "./components/UserDashboard/UserDashboard";
 import OwnerDashboard from "./components/OwnerDashboard/OwnerDashboard";
 // import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
     const [user, setUser] = useState(null);
@@ -12,6 +13,7 @@ function SignUp() {
     const [isOwner, setIsOwner] = useState(0);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,25 +32,24 @@ function SignUp() {
     };
 
     return (
-      <div className="container">
+      <div className="logincontainer">
         {user ? (
-          <div className="home">
-            {user.user.role === "user" ? (
-              <UserDashboard user={user} />
-            ) : (
-              <OwnerDashboard user={user} />
-            )}
-          </div>
+         
+      navigate("/")
+        
         ) : (
           <div className="login">
             <form onSubmit={handleSubmit}>
               <span className="formTitle">Sign Up</span>
               <input
+              className="text"
                 type="text"
                 placeholder="username"
                 onChange={(e) => setUsername(e.target.value)}
               />
               <input
+              className="text"
+
                 type="password"
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -56,11 +57,13 @@ function SignUp() {
               <div className="ownerr">
                 <label>owner</label>
                 <input
+                className="ch"
                   type="checkbox"
                   checked={isOwner === 1}
                   onChange={(e) => setIsOwner(e.target.checked ? 1 : 0)}
                 />
               </div>
+              
               <button type="submit" className="submitButton">
                 Sign Up
               </button>

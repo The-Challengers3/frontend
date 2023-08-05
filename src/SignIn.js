@@ -43,7 +43,7 @@ function SignIn({ UserInformation }) {
   return (
     <div className="logincontainer">
       {user ? (
-        <div className="home">
+        <div className="">
           {user.user.role === "user" ? (
             <UserDashboard user={user} />
           ) : (
@@ -55,15 +55,20 @@ function SignIn({ UserInformation }) {
           invalid <b>username</b> or <b>password</b>.
         </div>
       ) : (
+        <section className="box">
         <div className="login">
           <form onSubmit={handleSubmit}>
             <span className="formTitle">Log In</span>
             <input
+              className="text"
+
               type="text"
               placeholder="username"
               onChange={(e) => setUsername(e.target.value)}
             />
             <input
+              className="text"
+
               type="password"
               placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
@@ -77,8 +82,11 @@ function SignIn({ UserInformation }) {
             </p>
           </form>
         </div>
+    </section>
+
       )}
     </div>
+
   );
 }
 
