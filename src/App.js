@@ -10,7 +10,7 @@ import Reels from './components/reels/reelsPage'
 import Chat from "./components/chat/Chat";
 import Room from "./components/chat/Room";
 import { Route, Routes } from "react-router-dom";
-import Maps from "./components/map/Map";
+// import Maps from "./components/map/Map";
 import MApp from "./components/map/Map";
 const App = () => {
   const [user, setUser] = useState("");
