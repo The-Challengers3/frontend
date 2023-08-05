@@ -32,7 +32,7 @@ function SignUp() {
     };
 
     return (
-      <div className="container">
+      <div className="logincontainer">
         {user ? (
          
       navigate("/")
@@ -42,11 +42,14 @@ function SignUp() {
             <form onSubmit={handleSubmit}>
               <span className="formTitle">Sign Up</span>
               <input
+              className="text"
                 type="text"
                 placeholder="username"
                 onChange={(e) => setUsername(e.target.value)}
               />
               <input
+              className="text"
+
                 type="password"
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
@@ -54,11 +57,13 @@ function SignUp() {
               <div className="ownerr">
                 <label>owner</label>
                 <input
+                className="ch"
                   type="checkbox"
                   checked={isOwner === 1}
                   onChange={(e) => setIsOwner(e.target.checked ? 1 : 0)}
                 />
               </div>
+              
               <button type="submit" className="submitButton">
                 Sign Up
               </button>

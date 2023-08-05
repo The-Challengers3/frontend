@@ -1,0 +1,25 @@
+.modal-content{
+    /* background-color: #02293a!important; */
+    color: white !important;
+    /* From https://css.glass */
+background: rgba(5, 24, 83, 0.477) !important;
+border-radius: 16px;
+box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(4.8px);
+-webkit-backdrop-filter: blur(4.8px);
+border: 1px solid rgba(5, 25, 83, 0.07);
+}
+.modal-body{
+    /* background-image: linear-gradient( 135deg, #FFA6B7 10%, #1E2AD2 100%); */
+}
+
+.btn-primary{
+    width: 200px !important;
+    padding: 10px !important;
+    border: none !important;
+    border-radius: 10px !important;
+    background-color: rgb(12, 58, 87) !important;
+    color: rgb(255, 255, 255) !important;
+    cursor: pointer !important;
+    font-weight: 700 !important;
+} 

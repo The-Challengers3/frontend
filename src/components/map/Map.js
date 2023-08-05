@@ -35,17 +35,22 @@ function setupMap(center) {
 }
 
 function MApp() {
-  const [showPopup, setShowPopup] = useState(true);
+  const [popupInfo, setPopupInfo] = useState(null);
+  const [showPopup, setShowPopup] = useState(false);
   const [pins, setPins] = useState([]);
+  const [newPlace, setNewPlace] = useState(null);
+  const [title, setTitle] = useState(null);
+  const [desc, setDesc] = useState(null);
+  const [star, setStar] = useState(0);
 
   const [initialViewState, setInitialViewState] = useState({
     longitude: 35.9106,
     latitude: 31.9539,
-    zoom: 8.5,
+    zoom: 10,
   });
 
   const [start, setStart] = useState(zzz);
-  const [newPlace, setNewPlace] = useState(null);
+  const [currentPlaceId, setCurrentPlaceId] = useState(null);
 
   const [end, setEnd] = useState([zzz]);
   const [coords, setCoords] = useState([]);
@@ -62,10 +67,11 @@ function MApp() {
   }, [end, start]);
 
   const getRoute = async () => {
-    const response = await fetch(
+    const response = await axios.get(
       `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=pk.eyJ1IjoiYW1yb2Jhbmlpc3NhIiwiYSI6ImNsa3RtZXZ6aTBheG8zZnFvZXA2NmJ1dmoifQ.niUJad6HoR8yfURjiAS5Dw`
     );
-    const data = await response.json();
+
+    const data =  response.data;
     console.log(data);
     const coords = data.routes[0].geometry.coordinates;
     setCoords(coords);
@@ -125,6 +131,11 @@ function MApp() {
     }
   }, [geoControlRef.current]);
 
+  const handleMarkerClick = (id, lat, long) => {
+    setCurrentPlaceId(id);
+    setInitialViewState({ ...initialViewState, longitude: long , latitude: lat});
+  };
+
   useEffect(() => {
     const getPins = async () => {
       try {
@@ -148,6 +159,7 @@ function MApp() {
     setEnd(endPoint);
   };
   const addNewPlace = (e) => {
+    
     const { lat, lng } = e.lngLat;
     console.log(e);
     setNewPlace({
@@ -186,17 +198,17 @@ function MApp() {
                     color: "tomato",
                     cursor: "pointer",
                   }}
-                // onClick={() => handleMarkerClick(p.id, p.lat, p.long)}
+                onClick={() => handleMarkerClick(p.id, p.lat, p.long)}
                 />
             </Marker>
-            { (
+            { p.id === currentPlaceId && 
               <Popup
                 key={p.id}
                 latitude={p.lat}
                 longitude={p.long}
                 closeButton={true}
                 closeOnClick={false}
-                // onClose={() => setCurrentPlaceId(null)}
+                onClose={() => setCurrentPlaceId(null)}
                 anchor="left"
               >
                 <div className="card">
@@ -215,7 +227,7 @@ function MApp() {
                   {/* <span className="date">{format(p.createdAt)}</span> */}
                 </div>
               </Popup>
-            )}
+            }
           </>
         ))}
 

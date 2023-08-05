@@ -1,26 +1,19 @@
 import "./OWdashboard.css";
-import React from "react";
+import React, { useEffect } from "react";
+import { Link } from 'react-router-dom';
+
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import RestModal from "./restModal/modal";
 
-function OwnerDashboard({ user, socket }) {
-  const [rest, setRest] = useState(null);
-  const [notifications, setNotifications] = useState([]);
+function OwnerDashboard({ user }) {
+  const [rest, setRest] = useState([]);
 
-  socket?.emit("newUser", user.user.username);
-
-  console.log(notifications)
-  const addRest = async () => {
-    const postData = {
-      name: "jubran",
-      img: "image",
-      price: "100$",
-      ownerId: user.user.id,
-    };
+  const getRest = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:3005/restaurants",
-        postData,
+      const res = await axios.get(
+        `http://localhost:3005/getRest/${user.user.id}`,
+
         {
           headers: {
             Authorization: `Bearer ${user.token}`,
@@ -28,46 +21,55 @@ function OwnerDashboard({ user, socket }) {
           },
         }
       );
-      setRest(res.data);
+      setRest(res.data.restaurants);
+      console.log(res.data.restaurants);
+
     } catch (err) {
       console.log(err);
     }
   };
-
   useEffect(() => {
-    socket.on("getNotification", (data) => {
-      setNotifications((prev) => [...prev, data]);
-    });
+    getRest();
+  }, []);
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-      socket.off("getNotification");
-    };
-  }, [socket]);
   return (
-    <div>
-      <span>
-        Welcome to the owner dashboard <b>{user.user.username}</b>.
-        <button onClick={addRest}>add resturant</button>
-        {rest ? (
-          <div>
-            <p>{rest.name}</p>
-            <p>{rest.img}</p>
+    <section className="ownerDash">
+      <div className="owneer">
+        <span className="dashTitle">
+          Welcome to the owner dashboard <b>{user.user.username.toUpperCase()}</b>
+        </span>
+        {/* <RestModal user={user} /> */}
+        <Link to="/map">
+          <button>Add rest</button>
+        </Link>
+
+        {/* {
+          rest?.map((rest)=>{
+            return(<>
+            <section className="rest">
+              <h1><strong>{rest?.name}</strong></h1>
+            <p>{rest.descreption}</p>
+            <p>{rest.location}</p>
             <p>{rest.price}</p>
-          </div>
-        ) : (
-          ""
-        )}
-      </span>
-      <span>
-        {notifications.map((n) => {
-          console.log(n)
-          return (
-            <p>{n.senderName} booked a restarant</p>
-          )
-        })}
-      </span>
-    </div>
+              
+            </section>
+            </>)
+          })
+        } */}
+<section className="restss">
+   {rest?.map((restItem) => (
+          <section className="rest">
+            <h1>
+              <strong>{restItem.name}</strong>
+            </h1>
+            <p>{restItem.descreption}</p>
+            <p>{restItem.location}</p>
+            <p>{restItem.price}</p>
+          </section>
+        ))}
+  </section>       
+      </div>
+    </section>
   );
 }
 

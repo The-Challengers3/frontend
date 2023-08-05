@@ -1,4 +1,4 @@
-.card {
+.map .card {
     width: 250px;
     height: 250px;
     display: flex;
@@ -6,7 +6,7 @@
     justify-content: space-around;
   }
   
-  label {
+  .map  label {
     width: max-content;
     color: tomato;
     font-size: 13px;
@@ -14,23 +14,23 @@
     margin: 3px 0;
   }
   
-  .desc {
+  .map .desc {
     font-size: 14px;
   }
   
-  .star {
+  .map .star {
     color: gold;
   }
   
-  .username {
+  .map .username {
     font-size: 14px;
   }
   
-  .date {
+  .map .date {
     font-size: 12px;
   }
   
-  form {
+  .map form {
     width: 250px;
     height: 250px;
     display: flex;
@@ -39,29 +39,29 @@
     color: rgb(88, 87, 87);
   }
   
-  input {
+  .map input {
     border: none;
     border-bottom: 1px solid gray;
   }
   
-  input::placeholder,
+  .map input::placeholder,
   textarea::placeholder {
     font-size: 12px;
     color: rgb(185, 184, 184);
   }
   
-  input:focus,
+  .map  input:focus,
   textarea:focus,
   select:focus {
     outline: none;
   }
   
-  textarea {
+  .map  textarea {
     border: none;
     border-bottom: 1px solid gray;
   }
   
-  .submitButton {
+  .map .submitButton {
     border: none;
     padding: 5px;
     border-radius: 5px;
@@ -70,14 +70,14 @@
     cursor: pointer;
   }
   
-  .buttons,
+  .map .buttons,
   .logout {
     position: absolute;
     top: 10px;
     right: 10px;
   }
   
-  .button {
+  .map .button {
     border: none;
     padding: 5px;
     border-radius: 5px;
@@ -86,19 +86,19 @@
     cursor: pointer;
   }
   
-  .button:focus{
+  .map .button:focus{
     outline: none;
   }
   
-  .logout{
+  .map .logout{
     background-color: tomato;
   }
   
-  .login{
+  .map .login{
     background-color: teal;
     margin-right: 10px;
   }
   
-  .register{
+  .map .register{
     background-color: slateblue;
   }

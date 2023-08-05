@@ -4,9 +4,9 @@ import Card from "./components/card/Card";
 import Navbar from "./components/navbar/Navbar";
 import { posts } from "./data";
 import { io } from "socket.io-client";
-import SignUp from "./SignUp"
+import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-import Reels from './components/reels/reelsPage'
+import Reels from "./components/reels/reelsPage";
 import Chat from "./components/chat/Chat";
 import Room from "./components/chat/Room";
 import { Route, Routes } from "react-router-dom";
@@ -14,11 +14,13 @@ import { Route, Routes } from "react-router-dom";
 import MApp from "./components/map/Map";
 const App = () => {
   const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
+
   const [socket, setSocket] = useState(null);
   // const [userRoom, setUserRoom] = useState("");
 
   function UserInformation(data) {
-    setUser(data)
+    setUser(data);
   }
 
   useEffect(() => {
@@ -30,7 +32,7 @@ const App = () => {
   //   socket?.emit("newUser", user);
   // }, [socket, user]);
   return (
-    <div className="container">
+    <div className="">
       {/* {user ? (
         <>
           <Navbar socket={socket} />
@@ -55,20 +57,28 @@ const App = () => {
       {/* <SignUp /> */}
       {/* <SignIn /> */}
 
-      {/* <Routes>
+      <Routes>
         <Route
           path="/"
           element={<SignIn UserInformation={UserInformation} socket={socket} />}
         />
         <Route path="/SignUp" element={<SignUp />} />
-        { <Route path="/maps" element={<Maps />} /> }
+        <Route path="/map" element={<MApp />} />
 
         <Route path="/Reels" element={<Reels user={user} />} />
-        <Route path="/Chat" element={<Chat socket={socket} username={user.user?.username} room={user?.user?.id} />} />
+        <Route
+          path="/Chat"
+          element={
+            <Chat
+              socket={socket}
+              username={user.user?.username}
+              room={user?.user?.id}
+            />
+          }
+        />
         <Route path="/Room" element={<Room socket={socket} user={user} />} />
-      </Routes> */}
-      <MApp />
-    </div >
+      </Routes>
+    </div>
   );
 };
 
