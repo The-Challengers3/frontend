@@ -4,7 +4,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import RoomIcon from "@mui/icons-material/Room";
 import StarIcon from "@mui/icons-material/Star";
 import axios from "axios";
-// import "./map.css";
+import "./map.css";
 
 import Map, {
   NavigationControl,
@@ -18,7 +18,7 @@ import Map, {
 navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {
   enableHighAccuracy: true,
 });
-var zzz = []
+var zzz = [];
 function successLocation(position) {
   setupMap([position.coords.longitude, position.coords.latitude]);
   console.log(position);
@@ -31,7 +31,7 @@ function errorLocation() {
 }
 
 function setupMap(center) {
-  return center
+  return center;
 }
 
 function MApp() {
@@ -48,21 +48,28 @@ function MApp() {
   const [newPlace, setNewPlace] = useState(null);
 
   const [end, setEnd] = useState([zzz]);
-  const [coords, setCoords] = useState([])
+  const [coords, setCoords] = useState([]);
+  // const [currentUsername, setCurrentUsername] = useState(myStorage.getItem("user"));
+  const [restName, setRestName] = useState("");
+  const [restImg, setRestImg] = useState("");
+  const [restDesc, setRestDesc] = useState("");
+  const [restAddress, setRestAddress] = useState("");
+  const [restRating, setRestRating] = useState(0);
+  const [restPrice, setRestPrice] = useState("");
 
   useEffect(() => {
-    getRoute()
-  }, [end, start])
+    getRoute();
+  }, [end, start]);
 
   const getRoute = async () => {
     const response = await fetch(
       `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=pk.eyJ1IjoiYW1yb2Jhbmlpc3NhIiwiYSI6ImNsa3RtZXZ6aTBheG8zZnFvZXA2NmJ1dmoifQ.niUJad6HoR8yfURjiAS5Dw`
     );
     const data = await response.json();
-    console.log(data)
-    const coords = data.routes[0].geometry.coordinates
-    setCoords(coords)
-  }
+    console.log(data);
+    const coords = data.routes[0].geometry.coordinates;
+    setCoords(coords);
+  };
   const geojson = {
     type: "FeatureCollection",
     features: [
@@ -70,14 +77,32 @@ function MApp() {
         type: "feature",
         geometry: {
           type: "LineString",
-          coordinates: [
-            ...coords
-          ],
+          coordinates: [...coords],
         },
       },
     ],
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newPin = {
+      name:restName,
+      // img:restImg,
+      description:restDesc,
+      location:restAddress,
+      rating:restRating,
+      price:restPrice,
+      long: newPlace.lng,
+      lat: newPlace.lat,
+    };
 
+    try {
+      const res = await axios.post("http://localhost:3005/restaurants", newPin);
+      setPins([...pins, res.data]);
+      setNewPlace(null);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   const lineStyle = {
     id: "roadLayer",
     type: "line",
@@ -103,7 +128,7 @@ function MApp() {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const allPins = await axios.get("http://localhost:3005/pins");
+        const allPins = await axios.get("http://localhost:3005/restaurants");
         setPins(allPins.data);
       } catch (err) {
         console.log(err);
@@ -112,165 +137,172 @@ function MApp() {
     getPins();
   }, []);
 
-    const handleClick= (e)=>{
-      const newEnd = e.lngLat
-      const endPoint= Object.keys(newEnd).map((item,i)=>newEnd[item])
-      setEnd(endPoint)
-    }
-const addNewPlace=(e)=>{
- const{lat,lng}=e.lngLat;
-  console.log(e);
- setNewPlace({
-    lat,
-    lng,
-  })
-}
+  // const handleMarkerClick = (lat, long) => {
+  //   // setCurrentPlaceId(id);
+  //   initialViewState({ ...initialViewState, latitude: lat, longitude: long });
+  // };
+
+  const handleClick = (e) => {
+    const newEnd = e.lngLat;
+    const endPoint = Object.keys(newEnd).map((item, i) => newEnd[item]);
+    setEnd(endPoint);
+  };
+  const addNewPlace = (e) => {
+    const { lat, lng } = e.lngLat;
+    console.log(e);
+    setNewPlace({
+      lat,
+      lng,
+    });
+  };
   return (
     <>
-      {coords&&(<Map
-        {...initialViewState}
-        onClick={handleClick}
-        onMove={evt => setInitialViewState(evt.initialViewState)}
-        mapboxAccessToken="pk.eyJ1IjoiYW1yb2Jhbmlpc3NhIiwiYSI6ImNsa3RtZXZ6aTBheG8zZnFvZXA2NmJ1dmoifQ.niUJad6HoR8yfURjiAS5Dw"
-        // initialViewState={{
-        //   center: setupMap(),
-        //   longitude: 36.2384,
-        //   latitude: 30.5852,
-        //   zoom: 6.5,
-        // }}
-        style={{ width: "100vw", height: "100vh" }}
-        mapStyle="mapbox://styles/mapbox/streets-v9"
-        onDblClick={addNewPlace}
-      >
-        <Marker longitude={35.9106} latitude={31.9539} anchor="bottom">
-          <RoomIcon
-            style={{
-              fontSize: 7 * 6,
-              color: "tomato",
-              cursor: "pointer",
-            }}
-          />
-        </Marker>
+      {coords && (
+        <Map
+          {...initialViewState}
+          onClick={handleClick}
+          onMove={(evt) => setInitialViewState(evt.initialViewState)}
+          mapboxAccessToken="pk.eyJ1IjoiYW1yb2Jhbmlpc3NhIiwiYSI6ImNsa3RtZXZ6aTBheG8zZnFvZXA2NmJ1dmoifQ.niUJad6HoR8yfURjiAS5Dw"
+          // initialViewState={{
+          //   center: setupMap(),
+          //   longitude: 36.2384,
+          //   latitude: 30.5852,
+          //   zoom: 6.5,
+          // }}
+          style={{ width: "100vw", height: "100vh" }}
+          mapStyle="mapbox://styles/mapbox/streets-v9"
+          onDblClick={addNewPlace}
+        >
 
-        <Marker longitude={35.4444} latitude={30.3285} anchor="bottom">
-          <RoomIcon
-            style={{
-              fontSize: 7 * 6,
-              color: "orange",
-              cursor: "pointer",
-            }}
-          />
-        </Marker>
-
-        <Marker longitude={35.4732} latitude={31.559} anchor="bottom">
-          <RoomIcon
-            style={{
-              fontSize: 7 * 6,
-              color: "blue",
-              cursor: "pointer",
-            }}
-          />
-        </Marker>
-
-        <Marker longitude={35.5874} latitude={31.7219} anchor="bottom">
-          <RoomIcon
-            style={{
-              fontSize: 7 * 6,
-              color: "green",
-              cursor: "pointer",
-            }}
-          />
-        </Marker>
-
-        {showPopup && (
-          <Popup
-            longitude={35.9106}
-            latitude={31.9539}
-            anchor="left"
-          // onClose={() => setShowPopup(false)}
-          >
-            <div className="card">
-              <label>Place</label>
-              <h4 className="place">amman</h4>
-              <label>Review</label>
-              <p className="desc">welcom to amman</p>
-              <label>Rating</label>
-              <div className="stars">
-                {Array(5).fill(<StarIcon className="star" />)}
-              </div>
-              <label>Information</label>
-              <span className="username">
-                Created by <b>amro</b>
-              </span>
-            </div>
-          </Popup>
-        )}
-        <div style={{ position: "absolute", top: 10, right: 10 }}>
-          <NavigationControl />
-        </div>
-        <GeolocateControl ref={geoControlRef} />
-        <Source id="routeSource" type="geojson" data={geojson}>
-          <Layer {...lineStyle} />
-        </Source>
-        {newPlace&&(
-        <>
-          <Marker
-              latitude={newPlace.lat}
-              longitude={newPlace.lng}
-             
-            >
-              <RoomIcon
-                style={{
-                  fontSize: 7 * 6,
-                  color: "tomato",
-                  cursor: "pointer",
-                }}
-              />
+          {pins.map((p) => (
+          <>
+            <Marker
+              latitude={p.lat}
+              longitude={p.long}
+                        >
+               <RoomIcon
+                  style={{
+                    fontSize: 7 * 6,
+                    color: "tomato",
+                    cursor: "pointer",
+                  }}
+                // onClick={() => handleMarkerClick(p.id, p.lat, p.long)}
+                />
             </Marker>
-        <Popup
-              latitude={newPlace.lat}
-              longitude={newPlace.lng}
-              closeButton={true}
-              closeOnClick={false}
-              onClose={() => setNewPlace(null)}
-              anchor="left"
+            { (
+              <Popup
+                key={p.id}
+                latitude={p.lat}
+                longitude={p.long}
+                closeButton={true}
+                closeOnClick={false}
+                // onClose={() => setCurrentPlaceId(null)}
+                anchor="left"
               >
-               <div>
-                <form onSubmit={handleSubmit}>
-                  <label>Title</label>
-                  <input
-                    placeholder="Enter a title"
-                    autoFocus
-                    onChange={(e) => setTitle(e.target.value)}
-                  />
-                  <label>image</label>
-                  <label>price</label>
-             
-                  <label>Description</label>
-                  <textarea
-                    placeholder="Say us something about this place."
-                    onChange={(e) => setDesc(e.target.value)}
-                  />
+                <div className="card">
+                  <label>Place</label>
+                  <h4 className="place">{p.name}</h4>
+                  <label>Review</label>
+                  <p className="desc">{p.description}</p>
                   <label>Rating</label>
-                  <select onChange={(e) => setStar(e.target.value)}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                  </select>
-                  <button type="submit" className="submitButton">
-                    Add Pin
-                  </button>
-                </form>
-              </div>
-
+                  <div className="stars">
+                    {/* {Array(p.rating).fill(<Star className="star" />)} */}
+                    {p.rating}
+                  </div>
+                  <label>Information</label>
+                  <span className="username">
+                  </span>
+                  {/* <span className="date">{format(p.createdAt)}</span> */}
+                </div>
               </Popup>
-              
-              </>
-              
-              )}
-      </Map>)}
+            )}
+          </>
+        ))}
+
+        
+
+         
+        
+
+          
+          <div style={{ position: "absolute", top: 10, right: 10 }}>
+            <NavigationControl />
+          </div>
+          <GeolocateControl ref={geoControlRef} />
+          <Source id="routeSource" type="geojson" data={geojson}>
+            <Layer {...lineStyle} />
+          </Source>
+
+
+
+
+          {newPlace && (
+            <>
+              <Marker latitude={newPlace.lat} longitude={newPlace.lng}>
+                <RoomIcon
+                  style={{
+                    fontSize: 7 * 6,
+                    color: "tomato",
+                    cursor: "pointer",
+                  }}
+                />
+              </Marker>
+              <Popup
+                latitude={newPlace.lat}
+                longitude={newPlace.lng}
+                closeButton={true}
+                closeOnClick={false}
+                onClose={() => setNewPlace(null)}
+                anchor="left"
+              >
+                <div>
+                  <form onSubmit={handleSubmit}>
+                    <label>Name</label>
+                    <input
+                      placeholder="Enter your restaurant name"
+                      autoFocus
+                      onChange={(e) => setRestName(e.target.value)}
+                    />
+                    {/* <label>Image</label>
+                    <input
+                      placeholder="Enter your IMG URL"
+                      autoFocus
+                      onChange={(e) => setRestImg(e.target.value)}
+                    /> */}
+                    <label>Description</label>
+                    <textarea
+                      placeholder="Say us something about this place."
+                      onChange={(e) => setRestDesc(e.target.value)}
+                    />
+                    <label>location</label>
+                    <input
+                      placeholder="enter your address."
+                      onChange={(e) => setRestAddress(e.target.value)}
+                    />
+                    <label>Rating</label>
+                    <select onChange={(e) => setRestRating(e.target.value)}>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                    </select>
+                    <label>price</label>
+                    <input
+                      placeholder="enter your price range."
+                      onChange={(e) => setRestPrice(e.target.value)}
+                    />
+
+                    <button type="submit" className="submitButton">
+                      Add Pin
+                    </button>
+                  </form>
+                </div>
+              </Popup>
+            </>
+          )}
+        </Map>
+      )}
     </>
   );
 }
