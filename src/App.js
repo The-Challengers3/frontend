@@ -4,33 +4,33 @@ import Card from "./components/card/Card";
 import Navbar from "./components/navbar/Navbar";
 import { posts } from "./data";
 import { io } from "socket.io-client";
-import SignUp from "./SignUp"
+import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-import Reels from './components/reels/reelsPage'
+import Reels from "./components/reels/reelsPage";
+import Chat from "./components/chat/Chat";
 import Room from "./components/chat/Room";
 import { Route, Routes } from "react-router-dom";
-import Maps from "./components/map/Map";
-import Map2 from "./components/mapp2/mapp2";
-
+// import Maps from "./components/map/Map";
+import MApp from "./components/map/Map";
 const App = () => {
   const [user, setUser] = useState("");
   const [username, setUsername] = useState("");
 
   const [socket, setSocket] = useState(null);
+  // const [userRoom, setUserRoom] = useState("");
 
-  function UserInformation (data){
-    setUser(data)
+  function UserInformation(data) {
+    setUser(data);
   }
 
   useEffect(() => {
     setSocket(io("http://localhost:3005"));
   }, []);
 
-  useEffect(() => {
-  
-    socket?.emit("newUser", user);
-  }, [socket, user]);
+  // useEffect(() => {
 
+  //   socket?.emit("newUser", user);
+  // }, [socket, user]);
   return (
     <div className="">
       {/* {user ? (
@@ -54,22 +54,32 @@ const App = () => {
           <button onClick={() => setUser(username)}>Login</button>
         </div>
       )} */}
-      {/* <Routes>
+      {/* <SignUp /> */}
+      {/* <SignIn /> */}
+
+      <Routes>
         <Route
           path="/"
-          element={<SignIn UserInformation={UserInformation} />}
+          element={<SignIn UserInformation={UserInformation} socket={socket} />}
         />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/maps" element={<Maps />} />
+        <Route path="/map" element={<MApp />} />
 
         <Route path="/Reels" element={<Reels user={user} />} />
+        <Route
+          path="/Chat"
+          element={
+            <Chat
+              socket={socket}
+              username={user.user?.username}
+              room={user?.user?.id}
+            />
+          }
+        />
         <Route path="/Room" element={<Room socket={socket} user={user} />} />
-      </Routes> */}
-      {/* <Maps /> */}
-
-      <Map2/>
+      </Routes>
     </div>
   );
-  };
+};
 
 export default App;

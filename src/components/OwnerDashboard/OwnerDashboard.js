@@ -1,5 +1,7 @@
 import "./OWdashboard.css";
 import React, { useEffect } from "react";
+import { Link } from 'react-router-dom';
+
 import axios from "axios";
 import { useState } from "react";
 import RestModal from "./restModal/modal";
@@ -36,7 +38,10 @@ function OwnerDashboard({ user }) {
         <span className="dashTitle">
           Welcome to the owner dashboard <b>{user.user.username.toUpperCase()}</b>
         </span>
-        <RestModal user={user} />
+        {/* <RestModal user={user} /> */}
+        <Link to="/map">
+          <button>Add rest</button>
+        </Link>
 
         {/* {
           rest?.map((rest)=>{

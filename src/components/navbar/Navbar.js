@@ -13,7 +13,7 @@ const Navbar = ({ socket }) => {
     socket.on("getNotification", (data) => {
       setNotifications((prev) => [...prev, data]);
     });
-  
+
     // Clean up the event listener when the component unmounts
     return () => {
       socket.off("getNotification");
@@ -47,7 +47,7 @@ const Navbar = ({ socket }) => {
         <div className="icon" onClick={() => setOpen(!open)}>
           <img src={Notification} className="iconImg" alt="" />
           {
-notifications.length >0 &&
+            notifications.length > 0 &&
             <div className="counter">{notifications.length}</div>
           }
         </div>
