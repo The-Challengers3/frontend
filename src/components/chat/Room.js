@@ -1,6 +1,6 @@
 import "./Room.css";
 import io from "socket.io-client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Chat from "./Chat";
 
 // // const socket = io.connect("http://localhost:3001");
@@ -8,42 +8,54 @@ import Chat from "./Chat";
 //   setSocket(io("http://localhost:3005"));
 // }, []);
 
-function Room({socket}) {
+function Room({ socket, user }) {
   const [username, setUsername] = useState("");
   const [room, setRoom] = useState("");
   const [showChat, setShowChat] = useState(false);
 
+
   const joinRoom = () => {
+    socket?.emit("send_roomId", room);
     if (username !== "" && room !== "") {
-      socket.emit("join_room", room);
       setShowChat(true);
     }
   };
+  useEffect(() => {
+
+    if (user.user?.role === 'user') {
+      setShowChat(true)
+    } else {
+    }
+  }, [showChat]);
 
   return (
     <div className="ChatApp">
-      {!showChat ? (
-        <div className="joinChatContainer">
-          <h3>Join A Chat</h3>
-          <input
-            type="text"
-            placeholder="John..."
-            onChange={(event) => {
-              setUsername(event.target.value);
-            }}
-          />
-          <input
-            type="text"
-            placeholder="Room ID..."
-            onChange={(event) => {
-              setRoom(event.target.value);
-            }}
-          />
-          <button onClick={joinRoom}>Join A Room</button>
-        </div>
-      ) : (
-        <Chat socket={socket} username={username} room={room} />
-      )}
+      {
+        user?.user?.role === 'user' ?
+          (<Chat socket={socket} username={user.user.username} room={`${user.user.id}`} />) :
+          !showChat
+            ? (
+              <div className="joinChatContainer">
+                <h3>Join A Chat</h3>
+                <input
+                  type="text"
+                  placeholder="John..."
+                  onChange={(event) => {
+                    setUsername(event.target.value);
+                  }}
+                />
+                <input
+                  type="text"
+                  placeholder="Room ID..."
+                  onChange={(event) => {
+                    setRoom(event.target.value);
+                  }}
+                />
+                <button onClick={joinRoom}>Join A Room</button>
+              </div>
+            ) : (
+              <Chat socket={socket} username={username} room={room} />
+            )}
     </div>
   );
 }
