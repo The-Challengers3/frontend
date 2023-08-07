@@ -19,6 +19,9 @@ function SignIn({ UserInformation, socket }) {
     const encodedUser = base64.encode(username + ":");
     const encodedPassweord = base64.encode(password);
     // console.log(`${encodedUser}${encodedPassweord}`);
+
+    user && localStorage.removeItem('userToken');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const postData = {

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from 'axios';
@@ -6,7 +6,7 @@ import axios from 'axios';
 import "./modal.css";
 import Form from "react-bootstrap/Form";
 
-function ReelModal({user}) {
+function ReelModal({ user }) {
   const [show, setShow] = useState(false);
   const [username, setUsername] = useState("");
   const [description, setDescription] = useState("");
@@ -20,7 +20,7 @@ function ReelModal({user}) {
     setSelectedFile(file);
   };
 
-  const test = async(e)=>{
+  const test = async (e) => {
     const req = `${process.env.REACT_APP_SERVER_URL}restaurants`;
     const res = await axios.get(req)
     console.log(res.data);
@@ -28,26 +28,26 @@ function ReelModal({user}) {
   }
   const addToReels = (e) => {
     // e.preventDefault();
-  
+
     // Validate required fields
     // if (!username || !selectedFile) {
     //   alert("Please fill in all required fields.");
     //   return;
     // }
-  
+
     const req = `${process.env.REACT_APP_SERVER_URL}reelsUpload`;
-  
+
     const formData = new FormData();
     formData.append("username", user.username);
     formData.append("description", description);
     formData.append("video", selectedFile);
 
 
-  
+
     axios
       .post(req, formData, {
         headers: {
-          "Authorization": `Bearer ${user.token}`,
+          "Authorization": `Bearer ${localStorage.getItem('userToken')}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -62,6 +62,8 @@ function ReelModal({user}) {
         console.error("Error uploading video:", error);
       });
   };
+  useEffect(() => {
+  }, []);
 
   return (
     <>

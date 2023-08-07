@@ -1,19 +1,19 @@
 .video-player {
-    height: 100%;
-    width: 100%;
-  }
-  
-  .video-cards {
-    position: relative;
-  }
-  
-  video {
-    width: 50%;
-    height: 100%;
-    scroll-snap-align: start;
-    /* position: relative; */
-  }
+  height: 100%;
+  width: 100%;
+}
 
+.video-cards {
+  position: relative;
+  display: flex;
+}
+
+video {
+  width: 50%;
+  height: 100%;
+  scroll-snap-align: start;
+  /* position: relative; */
+}
 
 .insta-logo {
   width: 20%;
@@ -31,7 +31,12 @@
   scrollbar-width: none;
 }
 
-
 .video-container::-webkit-scrollbar {
   display: none;
+}
+.commentBTN {
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
+  border: none;
 }

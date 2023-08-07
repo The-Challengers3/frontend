@@ -26,7 +26,7 @@ function ReelModal({ user }) {
     };
     const res = await axios.post(req, data, {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${localStorage.getItem('userToken')}`,
       },
     });
     console.log(res.data);
