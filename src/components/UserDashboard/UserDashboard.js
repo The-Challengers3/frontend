@@ -33,7 +33,7 @@ function UserDashboard({ user, socket }) {
   const notifyBooking = () => {
     socket.emit("sendNotification", {
       senderName: user.user.username,
-      receiverName: 'salam'
+      receiverName: 'tala'
     });
   }
 
