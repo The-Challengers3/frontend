@@ -14,24 +14,24 @@ function OwnerDashboard({ user, socket }) {
 
   socket?.emit("get-all");
 
-  //useEffect(() => {
+  useEffect(() => {
 
-  socket.on("new-notifications-msg", (payload) => {
+    socket.on("new-notifications-msg", (payload) => {
 
-    setMissing((prev) => [...prev, payload.Details])
-    console.log(missing)
+      setMissing((prev) => [...prev, payload.Details])
+      console.log(missing)
 
-    console.log(`missing messeges from ${payload.Details},`);
-    socket.emit("received", payload);
-  });
-//return () => {
- 
+      console.log(`missing messeges from ${payload.Details},`);
+      socket.emit("received", payload);
+    });
+    return () => {
 
-    socket.off("new-notifications-msg");
-  
-  //  };
-  //}, []);
-  
+
+      socket.off("new-notifications-msg");
+
+    };
+  }, []);
+
   localStorage.setItem('userToken', user.token);
 
   socket?.emit("newUser", user.user.username);
@@ -92,7 +92,7 @@ function OwnerDashboard({ user, socket }) {
 
               console.log(n)
               return (
-                
+
                 <p> {n} has made a reservation while you are offline</p>
 
               )
