@@ -102,7 +102,7 @@ function MApp({ user }) {
     };
 
     try {
-      const res = await axios.post("http://localhost:3005/restaurants", newPin, {
+      const res = await axios.post(`${process.env.REACT_APP_SERVER_URL}restaurants`, newPin, {
         headers: {
           Authorization: `Bearer ${user.token}`,
           // 'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ function MApp({ user }) {
   useEffect(() => {
     const getPins = async () => {
       try {
-        const allPins = await axios.get("http://localhost:3005/restaurants", {
+        const allPins = await axios.get(`${process.env.REACT_APP_SERVER_URL}restaurants`, {
           headers: {
             Authorization: `Bearer ${user.token}`,
             // 'Content-Type': 'application/json',

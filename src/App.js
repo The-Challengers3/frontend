@@ -24,7 +24,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    setSocket(io("http://localhost:3005"));
+    setSocket(io(`${process.env.REACT_APP_SERVER_URL}`));
   }, []);
 
   // useEffect(() => {

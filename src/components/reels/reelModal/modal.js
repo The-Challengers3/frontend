@@ -35,7 +35,7 @@ function ReelModal({user}) {
     //   return;
     // }
   
-    const req = `http://localhost:3005/reelsUpload`;
+    const req = `${process.env.REACT_APP_SERVER_URL}reelsUpload`;
   
     const formData = new FormData();
     formData.append("username", user.username);

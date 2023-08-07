@@ -5,7 +5,7 @@ import Chat from "./Chat";
 
 // // const socket = io.connect("http://localhost:3001");
 // useEffect(() => {
-//   setSocket(io("http://localhost:3005"));
+//   setSocket(io("${process.env.REACT_APP_SERVER_URL}"));
 // }, []);
 
 function Room({ socket, user }) {
