@@ -9,7 +9,29 @@ import RestModal from "./restModal/modal";
 function OwnerDashboard({ user, socket }) {
   const [rest, setRest] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [missing, setMissing] = useState([]);
+  const [socketOff, setSocketOff] = useState(false);
 
+  socket?.emit("get-all");
+
+  //useEffect(() => {
+
+  socket.on("new-notifications-msg", (payload) => {
+
+    setMissing((prev) => [...prev, payload.Details])
+    console.log(missing)
+
+    console.log(`missing messeges from ${payload.Details},`);
+    socket.emit("received", payload);
+  });
+//return () => {
+ 
+
+    socket.off("new-notifications-msg");
+  
+  //  };
+  //}, []);
+  
   localStorage.setItem('userToken', user.token);
 
   socket?.emit("newUser", user.user.username);
@@ -64,6 +86,16 @@ function OwnerDashboard({ user, socket }) {
               console.log(n)
               return (
                 <p>{n.senderName} made a reservation in your restaurant {n.roomId}</p>
+
+              )
+            })}{
+            missing.map((n) => {
+
+              console.log(n)
+              return (
+                
+                <p> {n} has made a reservation while you are offline</p>
+
               )
             })
           }
@@ -84,5 +116,4 @@ function OwnerDashboard({ user, socket }) {
     </section>
   );
 }
-
 export default OwnerDashboard;
