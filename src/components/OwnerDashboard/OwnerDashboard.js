@@ -6,27 +6,41 @@ import axios from "axios";
 import { useState } from "react";
 import RestModal from "./restModal/modal";
 
-function OwnerDashboard({ user }) {
+function OwnerDashboard({ user, socket }) {
   const [rest, setRest] = useState([]);
+  const [notifications, setNotifications] = useState([]);
+
+  socket?.emit("newUser", user.user.username);
+
+  useEffect(() => {
+    socket.on("getNotification", (data) => {
+      setNotifications((prev) => [...prev, data]);
+    });
+    // console.log(notifications)
+    // Clean up the event listener when the component unmounts
+    return () => {
+      socket.off("getNotification");
+    };
+  }, [socket]);
 
   const getRest = async () => {
-    try {
-      const res = await axios.get(
-        `http://localhost:3005/getRest/${user.user.id}`,
+    // try {
+    //   const res = await axios.get(
+    //     `http://localhost:3005/getRest/${user.user.id}`,
 
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-            // 'Content-Type': 'application/json',
-          },
-        }
-      );
-      setRest(res.data.restaurants);
-      console.log(res.data.restaurants);
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${user.token}`,
+    //         // 'Content-Type': 'application/json',
+    //       },
+    //     }
+    //   );
+    //   setRest(res.data.restaurants);
+    //   console.log(res.data.restaurants);
 
-    } catch (err) {
-      console.log(err);
-    }
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
   useEffect(() => {
     getRest();
@@ -42,32 +56,28 @@ function OwnerDashboard({ user }) {
         <Link to="/map">
           <button>Add rest</button>
         </Link>
-
-        {/* {
-          rest?.map((rest)=>{
-            return(<>
+        <div className="notifications">
+          {
+            notifications.map((n) => {
+              console.log(n)
+              return (
+                <p>{n.senderName} made a reservation in your restaurant {n.roomId}</p>
+              )
+            })
+          }
+        </div>
+        <section className="restss">
+          {rest?.map((restItem) => (
             <section className="rest">
-              <h1><strong>{rest?.name}</strong></h1>
-            <p>{rest.descreption}</p>
-            <p>{rest.location}</p>
-            <p>{rest.price}</p>
-              
+              <h1>
+                <strong>{restItem.name}</strong>
+              </h1>
+              <p>{restItem.descreption}</p>
+              <p>{restItem.location}</p>
+              <p>{restItem.price}</p>
             </section>
-            </>)
-          })
-        } */}
-<section className="restss">
-   {rest?.map((restItem) => (
-          <section className="rest">
-            <h1>
-              <strong>{restItem.name}</strong>
-            </h1>
-            <p>{restItem.descreption}</p>
-            <p>{restItem.location}</p>
-            <p>{restItem.price}</p>
-          </section>
-        ))}
-  </section>       
+          ))}
+        </section>
       </div>
     </section>
   );
