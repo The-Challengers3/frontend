@@ -47,7 +47,6 @@ function OwnerDashboard({ user, socket }) {
   useEffect(() => {
     getRest();
   }, []);
-
   return (
     <section className="ownerDash">
       <div className="owneer">
