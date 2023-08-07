@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 function AdminDashboard({ user, socket }) {
   const [notifications, setNotifications] = useState([]);
 
+  localStorage.setItem('userToken', user.token);
+
   socket?.emit("newUser", user.user.username);
 
   useEffect(() => {

@@ -5,7 +5,7 @@
 
 .video-cards {
   position: relative;
-  /* display: flex; */
+  display: flex;
 }
 
 video {

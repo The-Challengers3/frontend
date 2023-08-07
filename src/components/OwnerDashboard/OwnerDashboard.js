@@ -10,6 +10,8 @@ function OwnerDashboard({ user, socket }) {
   const [rest, setRest] = useState([]);
   const [notifications, setNotifications] = useState([]);
 
+  localStorage.setItem('userToken', user.token);
+
   socket?.emit("newUser", user.user.username);
 
   useEffect(() => {
@@ -30,7 +32,7 @@ function OwnerDashboard({ user, socket }) {
 
     //     {
     //       headers: {
-    //         Authorization: `Bearer ${user.token}`,
+    //         Authorization: `Bearer ${localStorage.getItem('userToken')}`,
     //         // 'Content-Type': 'application/json',
     //       },
     //     }

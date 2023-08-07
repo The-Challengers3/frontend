@@ -8,9 +8,11 @@ const socket = io(`${process.env.REACT_APP_SERVER_URL}`);
 
 function UserDashboard({ user, socket }) {
 
+  localStorage.setItem('userToken', user.token);
+
   socket?.emit("newUser", user.user.username);
 
-  const adminArray = ['laith', 'mary'];
+  const adminArray = ['laith', 'ala', 'nour', 'savana', 'amro'];
 
   const sendToAdmin = () => {
     socket?.emit("join_room", `${user?.user?.id}`);
@@ -31,7 +33,7 @@ function UserDashboard({ user, socket }) {
   const notifyBooking = () => {
     socket.emit("sendNotification", {
       senderName: user.user.username,
-      receiverName: 'nour'
+      receiverName: 'salam'
     });
   }
 
@@ -46,7 +48,7 @@ function UserDashboard({ user, socket }) {
       <span>
         Welcome to the user dashboard <b>{user.user.username}</b>.
         <Link to="/Reels">
-          <button>add reel</button>
+          <button>watch reels</button>
         </Link>
         <Link to="/map">
           <button>open map</button>

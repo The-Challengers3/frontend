@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from 'axios';
@@ -47,7 +47,7 @@ function ReelModal({ user }) {
     axios
       .post(req, formData, {
         headers: {
-          "Authorization": `Bearer ${user.token}`,
+          "Authorization": `Bearer ${localStorage.getItem('userToken')}`,
           "Content-Type": "multipart/form-data",
         },
       })
@@ -62,6 +62,8 @@ function ReelModal({ user }) {
         console.error("Error uploading video:", error);
       });
   };
+  useEffect(() => {
+  }, []);
 
   return (
     <>

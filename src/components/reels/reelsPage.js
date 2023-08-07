@@ -15,7 +15,7 @@ const Reelspage = ({ user }) => {
     const req = `${process.env.REACT_APP_SERVER_URL}reels`;
     const res = await axios.get(req, {
       headers: {
-        "Authorization": `Bearer ${user.token}`,
+        "Authorization": `Bearer ${localStorage.getItem('userToken')}`,
       },
     });
     console.log(res.data);
