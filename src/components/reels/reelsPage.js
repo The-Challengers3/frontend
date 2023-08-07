@@ -8,11 +8,11 @@ import Reel from "./reel";
 import ReelModal from './reelModal/modal'
 
 
-const Reelspage = ({user}) => {
+const Reelspage = ({ user }) => {
   const [reelsData, setreelsData] = useState([]);
-  
-  
-  const req = async()=>{
+
+
+  const req = async () => {
     const req = `http://localhost:3005/reels`;
     const res = await axios.get(req, {
       headers: {
@@ -22,16 +22,16 @@ const Reelspage = ({user}) => {
     console.log(res.data);
     setreelsData(res.data);
   }
-  useEffect(()=>{
+  useEffect(() => {
     req();
-  },[])
+  }, [])
 
   return (
     <>
       <div className="App">
         <center>
           <div className="logo"></div>
-          <ReelModal user ={user}/>
+          <ReelModal user={user} />
           <h3>Reel</h3>
 
           {/*  */}
@@ -40,7 +40,7 @@ const Reelspage = ({user}) => {
             {/*  */}
 
             {reelsData.reverse().map((list, i) => (
-              <Reel key={i} url={list.url} />
+              <Reel key={i} url={list.url} reelId={list.id} user={user} />
             ))}
 
             {/*  */}
