@@ -34,7 +34,7 @@ function setupMap(center) {
   return center;
 }
 
-function MApp() {
+function MApp({ user }) {
   const [popupInfo, setPopupInfo] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
   const [pins, setPins] = useState([]);
@@ -71,7 +71,7 @@ function MApp() {
       `https://api.mapbox.com/directions/v5/mapbox/driving/${start[0]},${start[1]};${end[0]},${end[1]}?steps=true&geometries=geojson&access_token=pk.eyJ1IjoiYW1yb2Jhbmlpc3NhIiwiYSI6ImNsa3RtZXZ6aTBheG8zZnFvZXA2NmJ1dmoifQ.niUJad6HoR8yfURjiAS5Dw`
     );
 
-    const data =  response.data;
+    const data = response.data;
     console.log(data);
     const coords = data.routes[0].geometry.coordinates;
     setCoords(coords);
@@ -91,18 +91,23 @@ function MApp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newPin = {
-      name:restName,
+      name: restName,
       // img:restImg,
-      description:restDesc,
-      location:restAddress,
-      rating:restRating,
-      price:restPrice,
+      description: restDesc,
+      location: restAddress,
+      rating: restRating,
+      price: restPrice,
       long: newPlace.lng,
       lat: newPlace.lat,
     };
 
     try {
-      const res = await axios.post("http://localhost:3005/restaurants", newPin);
+      const res = await axios.post("http://localhost:3005/restaurants", newPin, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+          // 'Content-Type': 'application/json',
+        },
+      });
       setPins([...pins, res.data]);
       setNewPlace(null);
     } catch (err) {
@@ -133,13 +138,18 @@ function MApp() {
 
   const handleMarkerClick = (id, lat, long) => {
     setCurrentPlaceId(id);
-    setInitialViewState({ ...initialViewState, longitude: long , latitude: lat});
+    setInitialViewState({ ...initialViewState, longitude: long, latitude: lat });
   };
 
   useEffect(() => {
     const getPins = async () => {
       try {
-        const allPins = await axios.get("http://localhost:3005/restaurants");
+        const allPins = await axios.get("http://localhost:3005/restaurants", {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+            // 'Content-Type': 'application/json',
+          },
+        });
         setPins(allPins.data);
       } catch (err) {
         console.log(err);
@@ -159,14 +169,16 @@ function MApp() {
     setEnd(endPoint);
   };
   const addNewPlace = (e) => {
-    
-    const { lat, lng } = e.lngLat;
-    console.log(e);
-    setNewPlace({
-      lat,
-      lng,
-    });
+    if (user?.user?.role === 'owner') {
+      const { lat, lng } = e.lngLat;
+      console.log(e);
+      setNewPlace({
+        lat,
+        lng,
+      });
+    }
   };
+
   return (
     <>
       {coords && (
@@ -174,7 +186,7 @@ function MApp() {
           {...initialViewState}
           onClick={handleClick}
           onMove={(evt) => setInitialViewState(evt.initialViewState)}
-          mapboxAccessToken="pk.eyJ1IjoiYW1yb2Jhbmlpc3NhIiwiYSI6ImNsa3RtZXZ6aTBheG8zZnFvZXA2NmJ1dmoifQ.niUJad6HoR8yfURjiAS5Dw"
+          mapboxAccessToken={process.env.REACT_APP_MAPBOX}
           // initialViewState={{
           //   center: setupMap(),
           //   longitude: 36.2384,
@@ -187,56 +199,56 @@ function MApp() {
         >
 
           {pins.map((p) => (
-          <>
-            <Marker
-              latitude={p.lat}
-              longitude={p.long}
-                        >
-               <RoomIcon
+            <>
+              <Marker
+                latitude={p.lat}
+                longitude={p.long}
+              >
+                <RoomIcon
                   style={{
                     fontSize: 7 * 6,
                     color: "tomato",
                     cursor: "pointer",
                   }}
-                onClick={() => handleMarkerClick(p.id, p.lat, p.long)}
+                  onClick={() => handleMarkerClick(p.id, p.lat, p.long)}
                 />
-            </Marker>
-            { p.id === currentPlaceId && 
-              <Popup
-                key={p.id}
-                latitude={p.lat}
-                longitude={p.long}
-                closeButton={true}
-                closeOnClick={false}
-                onClose={() => setCurrentPlaceId(null)}
-                anchor="left"
-              >
-                <div className="card">
-                  <label>Place</label>
-                  <h4 className="place">{p.name}</h4>
-                  <label>Review</label>
-                  <p className="desc">{p.description}</p>
-                  <label>Rating</label>
-                  <div className="stars">
-                    {/* {Array(p.rating).fill(<Star className="star" />)} */}
-                    {p.rating}
+              </Marker>
+              {p.id === currentPlaceId &&
+                <Popup
+                  key={p.id}
+                  latitude={p.lat}
+                  longitude={p.long}
+                  closeButton={true}
+                  closeOnClick={false}
+                  onClose={() => setCurrentPlaceId(null)}
+                  anchor="left"
+                >
+                  <div className="card">
+                    <label>Place</label>
+                    <h4 className="place">{p.name}</h4>
+                    <label>Review</label>
+                    <p className="desc">{p.description}</p>
+                    <label>Rating</label>
+                    <div className="stars">
+                      {/* {Array(p.rating).fill(<Star className="star" />)} */}
+                      {p.rating}
+                    </div>
+                    <label>Information</label>
+                    <span className="username">
+                    </span>
+                    {/* <span className="date">{format(p.createdAt)}</span> */}
                   </div>
-                  <label>Information</label>
-                  <span className="username">
-                  </span>
-                  {/* <span className="date">{format(p.createdAt)}</span> */}
-                </div>
-              </Popup>
-            }
-          </>
-        ))}
+                </Popup>
+              }
+            </>
+          ))}
 
-        
 
-         
-        
 
-          
+
+
+
+
           <div style={{ position: "absolute", top: 10, right: 10 }}>
             <NavigationControl />
           </div>
@@ -313,8 +325,9 @@ function MApp() {
               </Popup>
             </>
           )}
-        </Map>
-      )}
+        </Map >
+      )
+      }
     </>
   );
 }

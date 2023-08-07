@@ -31,7 +31,7 @@ function UserDashboard({ user, socket }) {
   const notifyBooking = () => {
     socket.emit("sendNotification", {
       senderName: user.user.username,
-      receiverName: 'ala'
+      receiverName: 'nour'
     });
   }
 
@@ -47,6 +47,9 @@ function UserDashboard({ user, socket }) {
         Welcome to the user dashboard <b>{user.user.username}</b>.
         <Link to="/Reels">
           <button>add reel</button>
+        </Link>
+        <Link to="/map">
+          <button>open map</button>
         </Link>
         <Link to="/Room">
           <button onClick={sendToAdmin}>help center</button>

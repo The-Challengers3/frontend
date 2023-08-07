@@ -63,7 +63,7 @@ const App = () => {
           element={<SignIn UserInformation={UserInformation} socket={socket} />}
         />
         <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/map" element={<MApp />} />
+        <Route path="/map" element={<MApp user={user} />} />
 
         <Route path="/Reels" element={<Reels user={user} />} />
         <Route
