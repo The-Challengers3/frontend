@@ -11,9 +11,8 @@ import ReelModal from './reelModal/modal'
 const Reelspage = ({ user }) => {
   const [reelsData, setreelsData] = useState([]);
 
-
   const req = async () => {
-    const req = `http://localhost:3005/reels`;
+    const req = `${process.env.REACT_APP_SERVER_URL}reels`;
     const res = await axios.get(req, {
       headers: {
         "Authorization": `Bearer ${user.token}`,

@@ -26,7 +26,7 @@ function OwnerDashboard({ user, socket }) {
   const getRest = async () => {
     // try {
     //   const res = await axios.get(
-    //     `http://localhost:3005/getRest/${user.user.id}`,
+    //     `${process.env.REACT_APP_SERVER_URL}getRest/${user.user.id}`,
 
     //     {
     //       headers: {

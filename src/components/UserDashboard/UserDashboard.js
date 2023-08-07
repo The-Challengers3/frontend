@@ -3,7 +3,7 @@ import "./dashboard.css";
 import Reelspage from '../reels/reelsPage';
 import { Link } from 'react-router-dom';
 import io from "socket.io-client";
-const socket = io("http://localhost:3005");
+const socket = io(`${process.env.REACT_APP_SERVER_URL}`);
 
 
 function UserDashboard({ user, socket }) {
