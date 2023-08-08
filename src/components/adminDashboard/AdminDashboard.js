@@ -1,6 +1,5 @@
 import "./admindashboard.css";
 import React from "react";
-import axios from "axios";
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from "react";
 
@@ -15,8 +14,7 @@ function AdminDashboard({ user, socket }) {
     socket.on("getNotification", (data) => {
       setNotifications((prev) => [...prev, data]);
     });
-    // console.log(notifications)
-    // Clean up the event listener when the component unmounts
+  
     return () => {
       socket.off("getNotification");
     };

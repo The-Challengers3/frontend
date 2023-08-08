@@ -1,46 +1,35 @@
 import "./OWdashboard.css";
 import React, { useEffect } from "react";
-import { Link } from 'react-router-dom';
-import axios from "axios";
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import RestModal from "./restModal/modal";
 
 function OwnerDashboard({ user, socket }) {
   const [rest, setRest] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [missing, setMissing] = useState([]);
-  const [socketOff, setSocketOff] = useState(false);
 
   socket?.emit("get-all");
   socket?.emit("newUser", user.user.username);
-  localStorage.setItem('userToken', user.token);
+  localStorage.setItem("userToken", user.token);
 
   useEffect(() => {
+    socket.on("new-notifications-msg", (payload) => {
+      setMissing((prev) => [...prev, payload.Details]);
+      console.log(missing);
 
-  socket.on("new-notifications-msg", (payload) => {
-
-    setMissing((prev) => [...prev, payload.Details])
-    console.log(missing)
-
-    console.log(`missing messeges from ${payload.Details},`);
-    socket.emit("received", payload);
-  });
-return () => {
- 
-
-    socket.off("new-notifications-msg");
-  
-   };
+      console.log(`missing messeges from ${payload.Details},`);
+      socket.emit("received", payload);
+    });
+    return () => {
+      socket.off("new-notifications-msg");
+    };
   }, []);
-  
-
 
   useEffect(() => {
     socket.on("getNotification", (data) => {
       setNotifications((prev) => [...prev, data]);
     });
-    // console.log(notifications)
-    // Clean up the event listener when the component unmounts
+
     return () => {
       socket.off("getNotification");
     };
@@ -50,7 +39,6 @@ return () => {
     // try {
     //   const res = await axios.get(
     //     `${process.env.REACT_APP_SERVER_URL}getRest/${user.user.id}`,
-
     //     {
     //       headers: {
     //         Authorization: `Bearer ${localStorage.getItem('userToken')}`,
@@ -60,7 +48,6 @@ return () => {
     //   );
     //   setRest(res.data.restaurants);
     //   console.log(res.data.restaurants);
-
     // } catch (err) {
     //   console.log(err);
     // }
@@ -70,38 +57,32 @@ return () => {
   }, []);
 
   return (
-    <section className="ownerDash">
-      <div className="owneer">
-        <span className="dashTitle">
-          Welcome to the owner dashboard <b>{user.user.username.toUpperCase()}</b>
+    <section className='ownerDash'>
+      <div className='owneer'>
+        <span className='dashTitle'>
+          Welcome to the owner dashboard{" "}
+          <b>{user.user.username.toUpperCase()}</b>
         </span>
-        {/* <RestModal user={user} /> */}
-        <Link to="/map">
+        <Link to='/map'>
           <button>Add rest</button>
         </Link>
-        <div className="notifications">
-          {
-            notifications.map((n) => {
-              console.log(n)
-              return (
-                <p>{n.senderName} made a reservation in your restaurant {n.roomId}</p>
-
-              )
-            })}{
-            missing.map((n) => {
-
-              console.log(n)
-              return (
-                
-                <p> {n} has made a reservation while you are offline</p>
-
-              )
-            })
-          }
+        <div className='notifications'>
+          {notifications.map((n) => {
+            console.log(n);
+            return (
+              <p>
+                {n.senderName} made a reservation in your restaurant {n.roomId}
+              </p>
+            );
+          })}
+          {missing.map((n) => {
+            console.log(n);
+            return <p> {n} has made a reservation while you are offline</p>;
+          })}
         </div>
-        <section className="restss">
+        <section className='restss'>
           {rest?.map((restItem) => (
-            <section className="rest">
+            <section className='rest'>
               <h1>
                 <strong>{restItem.name}</strong>
               </h1>
