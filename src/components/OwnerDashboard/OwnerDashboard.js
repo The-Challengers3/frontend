@@ -1,7 +1,6 @@
 import "./OWdashboard.css";
 import React, { useEffect } from "react";
 import { Link } from 'react-router-dom';
-
 import axios from "axios";
 import { useState } from "react";
 import RestModal from "./restModal/modal";
@@ -13,8 +12,10 @@ function OwnerDashboard({ user, socket }) {
   const [socketOff, setSocketOff] = useState(false);
 
   socket?.emit("get-all");
+  socket?.emit("newUser", user.user.username);
+  localStorage.setItem('userToken', user.token);
 
-  //useEffect(() => {
+  useEffect(() => {
 
   socket.on("new-notifications-msg", (payload) => {
 
@@ -24,17 +25,15 @@ function OwnerDashboard({ user, socket }) {
     console.log(`missing messeges from ${payload.Details},`);
     socket.emit("received", payload);
   });
-//return () => {
+return () => {
  
 
     socket.off("new-notifications-msg");
   
-  //  };
-  //}, []);
+   };
+  }, []);
   
-  localStorage.setItem('userToken', user.token);
 
-  socket?.emit("newUser", user.user.username);
 
   useEffect(() => {
     socket.on("getNotification", (data) => {
