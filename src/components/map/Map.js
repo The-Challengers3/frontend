@@ -84,7 +84,7 @@ function MApp({ user }) {
     e.preventDefault();
     const newPin = {
       name: restName,
-      // img:restImg,
+      img:restImg,
       description: restDesc,
       location: restAddress,
       rating: restRating,
@@ -181,6 +181,7 @@ function MApp({ user }) {
         <Map
           {...initialViewState}
           onClick={handleClick}
+          className='map'
           onMove={(evt) => setInitialViewState(evt.initialViewState)}
           mapboxAccessToken={process.env.REACT_APP_MAPBOX}
           style={{ width: "100vw", height: "100vh" }}
@@ -199,28 +200,35 @@ function MApp({ user }) {
                 />
               </Marker>
               {p.id === currentPlaceId && (
-                <Popup
-                  key={p.id}
-                  latitude={p.lat}
-                  longitude={p.long}
-                  closeButton={true}
-                  closeOnClick={false}
-                  onClose={() => setCurrentPlaceId(null)}
-                  anchor='left'>
-                  <div className='card'>
-                    <label>Place</label>
-                    <h4 className='place'>{p.name}</h4>
-                    <label>Review</label>
-                    <p className='desc'>{p.description}</p>
-                    <label>Rating</label>
-                    <div className='stars'>
-                      {/* {Array(p.rating).fill(<Star className="star" />)} */}
-                      {p.rating}
+                <section className='pppp'>
+                  <Popup
+                    className='popup'
+                    key={p.id}
+                    latitude={p.lat}
+                    longitude={p.long}
+                    closeButton={true}
+                    closeOnClick={false}
+                    onClose={() => setCurrentPlaceId(null)}
+                    anchor='left'>
+                    <div className='mapcard'>
+                      <img src={p.img} />
+
+                      <section className='restinfoo'>
+                        <label>Place</label>
+                        <h4 className='place'>{p.name}</h4>
+                        <label>Review</label>
+                        <p className='desc'>{p.description}</p>
+                        <label>Rating</label>
+                        <div className='stars'>
+                          {Array(p.rating).fill(<StarIcon className="star" />)}
+                          {/* {p.rating} */}
+                        </div>
+                        <label>Information</label>
+                        <span className='username'></span>
+                      </section>
                     </div>
-                    <label>Information</label>
-                    <span className='username'></span>
-                  </div>
-                </Popup>
+                  </Popup>
+                </section>
               )}
             </>
           ))}
@@ -251,7 +259,7 @@ function MApp({ user }) {
                 closeOnClick={false}
                 onClose={() => setNewPlace(null)}
                 anchor='left'>
-                <div>
+                <div className="mapform">
                   <form onSubmit={handleSubmit}>
                     <label>Name</label>
                     <input
@@ -259,7 +267,14 @@ function MApp({ user }) {
                       autoFocus
                       onChange={(e) => setRestName(e.target.value)}
                     />
-               
+
+                    <label>Image</label>
+                    <input
+                      placeholder='Enter your restaurant name'
+                      autoFocus
+                      onChange={(e) => setRestImg(e.target.value)}
+                    />
+
                     <label>Description</label>
                     <textarea
                       placeholder='Say us something about this place.'
@@ -272,11 +287,11 @@ function MApp({ user }) {
                     />
                     <label>Rating</label>
                     <select onChange={(e) => setRestRating(e.target.value)}>
-                      <option value='1'>1</option>
-                      <option value='2'>2</option>
-                      <option value='3'>3</option>
-                      <option value='4'>4</option>
-                      <option value='5'>5</option>
+                      <option value='1'>⭐</option>
+                      <option value='2'>⭐⭐</option>
+                      <option value='3'>⭐⭐⭐</option>
+                      <option value='4'>⭐⭐⭐⭐</option>
+                      <option value='5'>⭐⭐⭐⭐⭐</option>
                     </select>
                     <label>price</label>
                     <input

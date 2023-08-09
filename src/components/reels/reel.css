@@ -5,7 +5,13 @@
 
 .video-cards {
   position: relative;
-  display: flex;
+  /* display: flex; */
+}
+.App h3{
+  font-size: 52px;
+  font-family: 'Lugrasimo', cursive;
+
+
 }
 
 video {
@@ -35,8 +41,88 @@ video {
   display: none;
 }
 .commentBTN {
-  position: absolute;
+  /* position: absolute;
   bottom: 60px;
   right: 20px;
+  border: none; */
+
+}
+
+.reel-modal-add{
+  /* position: absolute;
+  bottom: 60px;
+  right: 20px;
+  border: none; */
+}
+.commentsContainer{
+  position: absolute;
+  bottom: 170px;
+  left : -280px;
+  /* background-color: aliceblue; */
+  width: 48vw;
+  margin: auto;
+
+}
+
+.commentsContainer form{
+  /* background-color: aqua; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.commentsContainer input{
+  /* flex:80%; */
+  width: 400px;
+  height: 60px;
+  border-radius: 10px 0 0 10px;
+  padding: 30px;
+ background-color: rgba(155, 155, 155, 0.555);
+color: rgb(255, 255, 255);
+font-size: 20px;
+}
+.input-comment::placeholder {
+  color: #030303;
+}
+.commentsContainer button{
+  height: 60px;
+  width: 50px;
+ font-size: 20px;
+ border-radius: 0px 10px 10px 0px;
+ background-color: rgba(0, 55, 110, 0.438);
+ color: rgb(255, 255, 255);
+}
+
+.reel-btnns{
+  display: flex;
+  gap: 20px;
+  position: absolute;
+  bottom: 80px;
+  right: 35px;
   border: none;
+}
+
+.commentss{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* gap: 5px; */
+  font-size: 22px;
+  text-align: left;
+}
+
+.commentt{
+  background-color: rgba(148, 148, 148, 0.447);
+padding: 5px 20px;
+ border-radius: 10px;
+overflow: hidden;
+overflow-wrap: break-word;
+word-break: break-word;
+width: 450px;
+height: auto;
+min-height: 5vh;
+max-width:  450px;
+color: rgb(255, 255, 255);
+font-weight: 500;
 }

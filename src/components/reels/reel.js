@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import CommentIcon from "@mui/icons-material/Comment";
 import axios from "axios";
+import ReelModal from "./reelModal/modal";
+
 
 import "./reel.css";
 
@@ -60,10 +62,11 @@ export default function Video({ url, user, reelId }) {
         }
       );
       setCommentArr((prev) => [...prev, res.data]);
-      window.location.reload(true);
+      // window.location.reload(true);
     } catch (err) {
       console.log(err);
     }
+    setNewComment("");
   };
 
   useEffect(() => {}, []);
@@ -86,6 +89,9 @@ export default function Video({ url, user, reelId }) {
         ref={vidRef}
         src={url}
       />
+
+      <section className="reel-btnns">
+          <ReelModal className='commentBTN' user={user} />
       <CommentIcon
         style={{
           fontSize: 7 * 9,
@@ -95,17 +101,24 @@ export default function Video({ url, user, reelId }) {
         className='commentBTN'
         onClick={() => handleComment()}
       />
+      </section>
+        
       {showComment && (
         <div className='commentsContainer'>
+          <section className="commentss">
           {commentArr?.map((comment) => {
-            return <p>{comment.content}</p>;
-          })}
+            return <p className="commentt">{comment.content}</p>;
+          })}  
+          </section>
+          
           <form>
-            <textarea
+            <input
+            className="input-comment"
+            value={newComment}
               placeholder='Type a new comment'
-              onChange={(e) => setNewComment(e.target.value)}></textarea>
+              onChange={(e) => setNewComment(e.target.value)}></input>
             <button type='submit' onClick={handleNewComment}>
-              Add Comment
+            ➽
             </button>
           </form>
         </div>

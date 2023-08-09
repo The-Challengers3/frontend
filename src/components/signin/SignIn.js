@@ -51,9 +51,9 @@ function SignIn({ UserInformation, socket }) {
   // console.log({ userRoom })
 
   return (
-    <div className='container'>
+    <div className='logincontainer'>
       {user ? (
-        <div className='home'>
+        <div className='homme'>
           {user.user.role === "user" ? (
             <UserDashboard user={user} socket={socket} />
           ) : user.user.role === "admin" ? (
@@ -67,15 +67,17 @@ function SignIn({ UserInformation, socket }) {
           invalid <b>username</b> or <b>password</b>.
         </div>
       ) : (
-        <div className='login'>
+        <div className='loggin'>
           <form onSubmit={handleSubmit}>
             <span className='formTitle'>Log In</span>
             <input
+            className='inputt'
               type='text'
               placeholder='username'
               onChange={(e) => setUsername(e.target.value)}
             />
             <input
+            className='inputt'
               type='password'
               placeholder='password'
               onChange={(e) => setPassword(e.target.value)}

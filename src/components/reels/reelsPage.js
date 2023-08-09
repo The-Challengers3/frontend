@@ -27,9 +27,7 @@ const Reelspage = ({ user }) => {
     <>
       <div className='App'>
         <center>
-          <div className='logo'></div>
-          <ReelModal user={user} />
-          <h3>Reel</h3>
+          <h3>Reels Page</h3>
 
           <div className='video-container' id='video-container'>
             {reelsData.reverse().map((list, i) => (

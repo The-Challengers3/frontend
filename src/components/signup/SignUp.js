@@ -39,17 +39,17 @@ function SignUp() {
       {user ? (
         navigate("/")
       ) : (
-        <div className='login'>
+        <div className='loggin'>
           <form onSubmit={handleSubmit}>
             <span className='formTitle'>Sign Up</span>
             <input
-              className='text'
+              className='inputt'
               type='text'
               placeholder='username'
               onChange={(e) => setUsername(e.target.value)}
             />
             <input
-              className='text'
+              className='inputt'
               type='password'
               placeholder='password'
               onChange={(e) => setPassword(e.target.value)}
@@ -57,7 +57,7 @@ function SignUp() {
             <div className='ownerr'>
               <label>owner</label>
               <input
-                className='ch'
+                className='chbox'
                 type='checkbox'
                 checked={isOwner === 1}
                 onChange={(e) => setIsOwner(e.target.checked ? 1 : 0)}

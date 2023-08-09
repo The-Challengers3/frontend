@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 import "./modal.css";
 import Form from "react-bootstrap/Form";
@@ -43,14 +44,22 @@ function ReelModal({ user }) {
         console.error("Error uploading video:", error);
       });
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+
+    
+  }, []);
 
   return (
     <>
-      <Button variant='primary' onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
+     
+<AddBoxIcon  style={{
+          fontSize: 7 * 9,
+          color: "white",
+          cursor: "pointer",
+        }}
+        className="modalbutn" onClick={handleShow}
+        
+        />
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Modal heading</Modal.Title>

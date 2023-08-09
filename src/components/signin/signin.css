@@ -9,7 +9,7 @@ display: flex;
 .box{
   
 }
-.logincontainer .login {
+.logincontainer .loggin {
   width: 500px;
   height: 500px;
   display: grid;
@@ -21,10 +21,16 @@ display: flex;
   border-radius: 10px;
 color: white;
 background: rgb(2,0,36);
-background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,73,121,1) 50%, rgba(48,48,48,1) 100%);
+background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgb(105, 128, 146) 50%, rgb(50, 49, 49) 100%);
+
+background: #16222A;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to top, #345667, #002843);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to top, #346a85, #012740); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
 }
 
-.logincontainer .login form {
+.logincontainer .loggin form {
   height: 100%;
   width: 500px;
   display: flex;
@@ -36,43 +42,65 @@ background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,73,121,1) 50%, rgba(
 
 
 }
+.logincontainer .loggin form .inputt{
+  border-radius: 10px;
+  height: 40px;
+  padding: 10px;
+
+}
 
 .logincontainer .formTitle {
   color: rgb(255, 255, 255);
   font-size: 40px;
   font-weight: bold;
   margin-bottom: 30px;
+  font-family: 'Lugrasimo', cursive;
+
 }
 
-.logincontainer .login .text {
+.logincontainer .loggin .text {
   height: 40px;
   border: none;
   border-radius: 7px;
   border-bottom: 1px solid lightgray;
 }
 
-.logincontainer .login  input:focus {
+.logincontainer .loggin  input:focus {
   outline: none;
 }
 
 .logincontainer .submitButton {
   width: 100px;
   padding: 10px;
-  border: none;
+  border: 1px solid lightgray;
   border-radius: 10px;
-  background-color: rgb(26, 99, 144);
+  background-color: rgb(126, 120, 126);
   color: rgb(255, 255, 255);
   cursor: pointer;
   font-weight: 700;
 }
 
+.loggin {
+  /* width: 200px;
+  height: 200px; */
+  /* padding: 20px; */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+}
+
 /* .logincontainer .home {
-  width: 400px;
-  height: 250px;
+  height: 100vh;
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   text-align: center;
 } */
 

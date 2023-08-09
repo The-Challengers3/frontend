@@ -11,41 +11,88 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+    /* height: 85vh; */
+    /* padding: 60px; */
+    width: 80vw;
+    margin: auto;
+    margin-top: 8vh;
+    margin-bottom: 8vh;
+
+    background-color: aqua;
   gap: 40px;
-}
+   
+    display: grid;
+    place-items: center;
+    border-radius: 0px 80px;
+    align-content: space-evenly;
+  
+    background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 3px, transparent 3px) 0% 0%/8px 8px no-repeat,
+              radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px) 100% 0%/8px 8px no-repeat,
+              radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px) 0% 100%/8px 8px no-repeat,
+              radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px) 100% 100%/8px 8px no-repeat,
+              linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 10px) calc(100% - 16px) no-repeat,
+              linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 16px) calc(100% - 10px) no-repeat,
+              linear-gradient(203deg, transparent 0%, rgba(217,133,13,0.24) 73.392%, rgba(232,48,89,0.52) 100%),
+              radial-gradient(at 29% 89%, #7c3131 0%, rgb(16, 13, 109) 97%, #342857 100%) 39% 94%/123% 175%;
+  /* border-radius: 8px; */
+  padding: 30px;
+  box-sizing: border-box;
+  }
+
 
 .ownerBut{
     width: 200px;
     padding: 10px;
     border: none;
     border-radius: 10px;
-    background-color: rgb(74, 12, 87);
+    background-color: rgb(84, 3, 23);
     color: rgb(255, 255, 255);
     cursor: pointer;
     font-weight: 700;
+    
+  }
+
+  .ownerinfo{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 42px;
+    font-weight: 900;
+    font-family: 'Lugrasimo', cursive;
+    color: rgb(37, 37, 37);
   }
 
   .dashTitle{
     margin-top: 30px;
     font-size: 42px;
     font-weight: 900;
-    color: rgb(103, 9, 104);
+    color: rgb(37, 37, 37);
+
     font-family: 'Lugrasimo', cursive;
   }
 
   .rest{
-    width: 300px;
-    height: 300px;
+    width: 400px;
+    padding: 15px;
+    height: 260px;
     margin: auto;
+    margin-top: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    border-style: dashed
+    border-style: dashed;
+    border-bottom-style: none;
+    border-top-style: none;
   }
 
   .rest h1{
-    color: rgb(103, 9, 104);
+    color: rgb(83, 0, 19);
+    font-size: 28px;
+    font-family: 'Lugrasimo', cursive;
+
 
   }
   .restss{
@@ -56,3 +103,15 @@
    
 
   }
+
+  .rest p:nth-child(3),p:nth-child(4){
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .notifications p {
+    font-size: 22px;
+    font-weight: 400;
+    text-align: center;
+  }
+  

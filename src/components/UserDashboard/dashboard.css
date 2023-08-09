@@ -5,25 +5,60 @@
   height: 100vh;
 }
 .userr{
+  height: 80vh;
+  width: 70vw;
+  margin: auto;
+  margin-top: 10vh;
+ 
+  display: grid;
+  place-items: center;
+  border-radius: 0px 80px;
+  align-content: space-evenly;
+  
+  background: radial-gradient(circle at 100% 100%, #ffffff 0, #ffffff 3px, transparent 3px) 0% 0%/8px 8px no-repeat,
+            radial-gradient(circle at 0 100%, #ffffff 0, #ffffff 3px, transparent 3px) 100% 0%/8px 8px no-repeat,
+            radial-gradient(circle at 100% 0, #ffffff 0, #ffffff 3px, transparent 3px) 0% 100%/8px 8px no-repeat,
+            radial-gradient(circle at 0 0, #ffffff 0, #ffffff 3px, transparent 3px) 100% 100%/8px 8px no-repeat,
+            linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 10px) calc(100% - 16px) no-repeat,
+            linear-gradient(#ffffff, #ffffff) 50% 50%/calc(100% - 16px) calc(100% - 10px) no-repeat,
+            linear-gradient(203deg, transparent 0%, rgba(217,133,13,0.24) 73.392%, rgba(232,48,89,0.52) 100%),
+            radial-gradient(at 29% 89%, #090930 0%, rgba(15,141,224,1) 97%, #000000 100%) 39% 94%/123% 175%;
+/* border-radius: 8px; */
+
+box-sizing: border-box;
+
+}
+.userinfo{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 40px;
+  font-size: 42px;
+  font-weight: 900;
+  font-family: 'Lugrasimo', cursive;
+  color: rgb(45, 45, 45);
 }
 
 .userBut{
-    width: 200px;
+    width: 150px;
     padding: 10px;
     border: none;
     border-radius: 10px;
-    background-color: rgb(12, 58, 87);
+    background-color: rgb(3, 49, 62);
     color: rgb(255, 255, 255);
     cursor: pointer;
     font-weight: 700;
   }
 
-  .dashTitle{
+  .UdashTitle{
     font-size: 42px;
+    font-weight: 900;
     font-family: 'Lugrasimo', cursive;
+    color:rgb(45, 45, 45);
+  }
+
+  .bttns{
+    display: grid;
+    grid-template-columns: auto auto ;
+    gap: 30px;
   }

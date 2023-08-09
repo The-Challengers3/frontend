@@ -34,7 +34,7 @@ function Room({ socket, user }) {
                 <h3>Join A Chat</h3>
                 <input
                   type="text"
-                  placeholder="John..."
+                  placeholder="Name..."
                   onChange={(event) => {
                     setUsername(event.target.value);
                   }}
@@ -46,7 +46,7 @@ function Room({ socket, user }) {
                     setRoom(event.target.value);
                   }}
                 />
-                <button onClick={joinRoom}>Join A Room</button>
+                <button onClick={joinRoom}>Join Room</button>
               </div>
             ) : (
               <Chat socket={socket} username={username} room={room} />

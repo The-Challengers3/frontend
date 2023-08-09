@@ -6,10 +6,10 @@ display: flex;
   align-items: center;
 
 }
-.box{
-  
+.chbox{
+ 
 }
-.logincontainer .login {
+.logincontainer .loggin {
   width: 500px;
   height: 500px;
   display: grid;
@@ -24,7 +24,7 @@ background: rgb(2,0,36);
 background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,73,121,1) 50%, rgba(48,48,48,1) 100%);
 }
 
-.logincontainer .login form {
+.logincontainer .loggin form {
   height: 100%;
   width: 500px;
   display: flex;
@@ -44,7 +44,7 @@ background: linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(9,73,121,1) 50%, rgba(
   margin-bottom: 30px;
 }
 
-.logincontainer .login .text {
+.logincontainer .loggin .text {
   height: 40px;
   border: none;
   border-radius: 7px;
